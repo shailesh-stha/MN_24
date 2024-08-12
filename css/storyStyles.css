@@ -1,0 +1,151 @@
+
+/* Story css */
+.storyHeaderContainer {
+    display: flex;
+    flex-wrap: wrap;
+    background: linear-gradient(to right, #cbcbcb, #e4e4e4);
+    padding: 5px;
+    margin-bottom: 5px;
+}
+
+.storyHeader {
+    text-align: center;
+    padding: 5px;
+    margin: 5px;
+    font-weight: bold;
+}
+
+.storyHeader a:hover {
+    color: rgb(255, 62, 181);
+    font-weight: bold;
+}
+
+/* Contents */
+.storyContentContainer {
+    padding-top: 10px;
+    height: 62.5vh;
+    overflow-y: auto;
+    background-color: #f5f5f5;
+}
+
+.text-content {
+    max-width: 800px;
+    margin: 10px;
+    text-align: justify;
+}
+
+.activeHeader {
+    background-color: rgb(255, 62, 181); 
+    border-left: 5px solid #007bff;
+    margin-top: 10px;
+    padding-left: 10px;
+    /* padding-bottom: 10px; */
+    color: white;
+}
+
+h1 {
+    font-size: 20px;
+    font-weight: bold;
+    padding-top: 10px;
+    margin-top: 15px;
+}
+
+p[id^="description"] {
+    /* Add your desired CSS properties here */
+    font-size: 14px;
+    padding: 0px;
+}
+
+/* Image Carousel */
+.carousel {
+    position: relative;
+    width: 80%;
+    max-width: 600px;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    overflow: hidden;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    background-color: #fff;
+    margin-bottom: 25px;
+}
+
+.carousel-images {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.carousel-image {
+    width: 100%;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.carousel-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    border: none;
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    padding: 0px;
+    cursor: pointer;
+    z-index: 1000;
+    opacity: 0.5;
+}
+
+.carousel-button.prev {
+    left: 10px;
+}
+
+.carousel-button.next {
+    right: 10px;
+}
+
+.content-image {
+    width: 70%;
+    height: auto;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 1px solid grey;
+}
+
+/* ScrollToTop Button */
+.scrollToTopButton {
+    background-color: rgb(201, 201, 201);
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    position: absolute;
+    right: 7.5%;
+    bottom: 1.5%;
+    opacity: 0.6; /* Fully transparent by default */
+    transition: opacity 0.2s; /* Smooth transition */
+}
+.scrollToTopButton:hover {
+    opacity: 1; /* Fully opaque when hovered over */
+}
+
+/*  Button */
+.autoScrollButton {
+    background-color: rgb(201, 201, 201);
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    position: absolute;
+    left: 7.5%;
+    bottom: 1.5%;
+    opacity: 0.6; /* Fully transparent by default */
+    transition: opacity 0.2s; /* Smooth transition */
+}
+.autoScrollButton:hover {
+    opacity: 1; /* Fully opaque when hovered over */
+}

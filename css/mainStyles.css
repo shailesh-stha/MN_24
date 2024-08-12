@@ -1,0 +1,57 @@
+body {
+    width: 100%;
+    max-width: 1500px;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: rgb(33, 111, 167);
+}
+
+.headerContainer {
+    width: 100%;
+    background-color: rgb(255, 255, 255);
+    padding: 20px;
+    margin-bottom: 10px;
+}
+
+.strLogo {
+    /* width: 100%; */
+    max-width: 250px;
+    height: auto;
+}
+
+.playOverlay {
+    height: 720px;
+    width: 1420px;
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 4px 4px 5px #c0c0c0;
+    z-index: 1;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 20px;
+    position: absolute;
+}
+
+.playButton {
+    width: 100px; /* Adjust size as needed */
+    height: 100px; /* Adjust size as needed */
+    background-color: rgb(102, 102, 102); /* Circle color */
+    border-radius: 50%;
+    position: absolute;
+    top: 50%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Adjust for exact centering */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 2; /* Ensure it is above the rectangle */
+}
+
+.playIcon {
+    width: 40px; /* Size of the play icon */
+    height: 40px; /* Size of the play icon */
+    fill: white; /* Color of the play icon */
+}

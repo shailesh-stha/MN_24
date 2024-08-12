@@ -1,0 +1,7 @@
+node_modules/
+python_scripts/
+
+.vscode/
+
+package-lock.json
+package.json
