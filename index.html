@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport"="width=device-width, initial-scale=1.0">
     <!-- CesiumJS Library -->
     <script src="https://cesium.com/downloads/cesiumjs/releases/1.118/Build/Cesium/Cesium.js"></script>
     <link href="https://cesium.com/downloads/cesiumjs/releases/1.118/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
@@ -11,28 +11,28 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="./css/mainStyles.css">
-    <link rel="stylesheet" href="./css/cesiumStyles.css">
     <link rel="stylesheet" href="./css/storyStyles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <title>Museum Oberamteistrasse Reutlingen</title>
+    <link rel="stylesheet" href="./css/threejsCss.css">
+    <link rel="stylesheet" href="./css/backgroundStyles.css">
 
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D8XLRMW96Z"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-        gtag('config', 'G-D8XLRMW96Z');
-    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>Neuperlach, Munich</title>
 
 </head>
+
 <body>
     <!-- Header Section -->
     <header class="headerContainer">
         <div class="row">
-            <div class="col-md-4">
-                <!-- Logo Image -->
-                <img src="./data/240209_str-ucture_logo_rgb-02.jpg" alt="str.ucture GmbH" class="strLogo">
+            <div class="col-8">
+                <a href="https://www.str-ucture.com/" target="_blank">
+                    <img src="./data/240209_str-ucture_logo_rgb-02.jpg" alt="str.ucture GmbH" class="headerLogo">
+                </a>
+            </div>
+            <div class="col-4">
+                <a href="https://www.nebourhoods.de/en" target="_blank">
+                    <img src="./data/NEB_logo_cropped.png" alt="Creating NEBourhoods" class="headerLogo">
+                </a>
             </div>
         </div>
     </header>
@@ -41,90 +41,143 @@
     <div class="cesiumBodyContainer">
         <div class="row">
             <!-- Cesium Viewer Container -->
-            <div class="col-12 col-md-7 bg-white">
-                <h4>Museum Oberamteistrasse Reutlingen</h4>
+            <div class="col-md-7 bg-white">
+                <h2 class="customH1">Microclimate simulation of Neuperlach, Munich (with Palm-4u)</h2>
                 <div id="cesiumMapContainer"></div>
             </div>
 
             <!-- Information Section -->
-            <div class="col-12 col-md-5 bg-white">
-                <h3 style="text-align: center;">_______________</h3>
+            <div class="col-md-5 bg-white">
+                <h2 style="text-align: center;">_______________</h2>
 
                 <div class="storyHeaderContainer">
-                    <div class="storyHeader"><a href="#header1" onclick="setCameraView('view1'); toggleEntities('showBuild1')">Overview</a></div>
-                    <div class="storyHeader"><a href="#header2" onclick="setCameraView('view2'); toggleEntities('showBuild2')">History</a></div>
-                    <div class="storyHeader"><a href="#header3" onclick="setCameraView('view3'); toggleEntities('showBuild3')">Front View</a></div>
-                    <div class="storyHeader"><a href="#header4" onclick="setCameraView('view4'); toggleEntities('showBuild4')">Right View</a></div>
-                    <div class="storyHeader"><a href="#header5" onclick="setCameraView('view5'); toggleEntities('showBuild5')">Back View</a></div>
-                    <div class="storyHeader"><a href="#header6" onclick="setCameraView('view6'); toggleEntities('showBuild6')">Left View</a></div>
-                    <div class="storyHeader"><a href="#header7" onclick="setCameraView('view7'); toggleEntities('showBuild7')">Surprise me!</a></div>
+                    <div class="storyHeader"><a href="#header1"
+                            onclick="setCameraView('view1'); toggleEntities('showBuild1')">NEBourhoods</a></div>
+                    <div class="storyHeader"><a href="#header2"
+                            onclick="setCameraView('view2'); toggleEntities('showBuild2')">Neuperlach</a></div>
+                    <div class="storyHeader"><a href="#header3"
+                            onclick="setCameraView('view3'); toggleEntities('showBuild3')">Simulation</a></div>
+                    <div class="storyHeader"><a href="#header4"
+                            onclick="setCameraView('view4'); toggleEntities('showBuild4')">Area of Interest</a></div>
+                    <div class="storyHeader"><a href="#header5"
+                            onclick="setCameraView('view5'); toggleEntities('showBuild5')">STRUCTURE</a></div>
+                    <div class="storyHeader"><a href="#header6"
+                            onclick="setCameraView('view6'); toggleEntities('showBuild6')">Impact</a></div>
+                    <div class="storyHeader"><a href="#header7"
+                            onclick="setCameraView('view7'); toggleEntities('showBuild7')">Comfort</a></div>
                 </div>
                 <div class="storyContentContainer">
                     <div class="text-content">
-                        <!-- Overview -->
-                        <h1 id="header1">Overview</h1>
+                        <!-- Header 1 -->
+                        <h1 id="header1">Creating NEBourhoods Together</h1>             
                         <p id="description11" data-first-key="title1" data-second-key="para1"></p>
                         <p id="description12" data-first-key="title1" data-second-key="para2"></p>
                         <p id="description13" data-first-key="title1" data-second-key="para3"></p>
-
-                        <img src="./data/img/image1.jpg" class="content-image" alt="History Overview">
-                        
-                        <!-- Header 1 -->
-                        <h1 id="header2">History</h1>
-                        <p id="description21" data-first-key="title2" data-second-key="para1"></p>
-                        <p id="description22" data-first-key="title2" data-second-key="para2"></p>
-
+                        <div class="urlLinks">
+                            <p>Read more at: <a href="https://www.nebourhoods.de/en/" target="_blank">Creating
+                                    NEBourhoods Together</a></p>
+                        </div>
                         <div class="carousel" id="carousel_0">
                             <button class="carousel-button prev" onclick="prevSlide('carousel_0')">&#10094;</button>
                             <div class="carousel-images">
-                                <img src="./data/img/history1.jpg" class="carousel-image" alt="Image 1">
-                                <img src="./data/img/history2.jpg" class="carousel-image" alt="Image 2">
+                                <img src="./data/ai_img_1.png" class="carousel-image" alt="Image 1">
+                                <img src="./data/ai_img_2.png" class="carousel-image" alt="Image 2">
+                                <img src="./data/ai_img_3.png" class="carousel-image" alt="Image 3">
                             </div>
                             <button class="carousel-button next" onclick="nextSlide('carousel_0')">&#10095;</button>
                         </div>
 
                         <!-- Header 2 -->
-                        <h1 id="header3">Front View</h1>
-                        <p id="description31" data-first-key="title3" data-second-key="para1"></p>
+                        <h1 id="header2">Neuperlach: Modern and Inclusive</h1>
+                        <p id="description21" data-first-key="title2" data-second-key="para1"></p>
+                        <p id="description22" data-first-key="title2" data-second-key="para2"></p>
+                        <p id="description23" data-first-key="title2" data-second-key="para3"></p>
                         <div class="carousel" id="carousel_1">
                             <button class="carousel-button prev" onclick="prevSlide('carousel_1')">&#10094;</button>
                             <div class="carousel-images">
-                                <img src="./data/img/image2.jpg" class="carousel-image" alt="Image 1">
-                                <img src="./data/img/image3.jpg" class="carousel-image" alt="Image 2">
-                                <img src="./data/img/image4.jpg" class="carousel-image" alt="Image 3">
+                                <img src="./data/NEBourhoods.png" class="carousel-image" alt="Image 1">
+                                <img src="./data/ai_img_4.png" class="carousel-image" alt="Image 2">
+                                <img src="./data/ai_img_5.png" class="carousel-image" alt="Image 3">
                             </div>
                             <button class="carousel-button next" onclick="nextSlide('carousel_1')">&#10095;</button>
                         </div>
 
+                        <!-- Header 3 -->
+                        <h1 id="header3">Simulation: Domain and Details</h1>
+                        <p id="description31" data-first-key="title3" data-second-key="para1"></p>
+                        <p id="description32" data-first-key="title3" data-second-key="para2"></p>
+                        <div class="carousel" id="carousel_2">
+                            <button class="carousel-button prev" onclick="prevSlide('carousel_2')">&#10094;</button>
+                            <div class="carousel-images">
+                                <img src="./data/ai_img_6.png" class="carousel-image" alt="Image 1">
+                                <img src="./data/overviewMap.jpg" class="carousel-image" alt="Image 2">
+                            </div>
+                            <button class="carousel-button next" onclick="nextSlide('carousel_2')">&#10095;</button>
+                        </div>
+
                         <!-- Header 4 -->
-                        <h1 id="header4">Right View</h1>
+                        <h1 id="header4">Area of Interests</h1>
                         <p id="description41" data-first-key="title4" data-second-key="para1"></p>
                         <p id="description42" data-first-key="title4" data-second-key="para2"></p>
                         <p id="description43" data-first-key="title4" data-second-key="para3"></p>
+                        <table border="1">
+                            <tr>
+                                <th>Area</th>
+                                <th>Location</th>
+                                <th>Size</th>
+                            </tr>
+                            <tr>
+                                <td style="background-color:rgba(0, 128, 0, 0.5); color:white;">Green</td>
+                                <td>Top-left</td>
+                                <td>512m x 512m x 256m</td>
+                            </tr>
+                            <tr>
+                                <td style="background-color:rgba(255, 0, 0, 0.5); color:white;">Red</td>
+                                <td>Bottom-left</td>
+                                <td>512m x 512m x 256m</td>
+                            </tr>
+                            <tr>
+                                <td style="background-color:rgba(0, 0, 255, 0.5); color:white;">Blue</td>
+                                <td>Top-right</td>
+                                <td>640m x 640m x 256m</td>
+                            </tr>
+                        </table>
 
                         <!-- Header 5 -->
-                        <h1 id="header5">Back View</h1>
+                        <h1 id="header5">The STRUCTURE by str.ucture</h1>
                         <p id="description51" data-first-key="title5" data-second-key="para1"></p>
                         <p id="description52" data-first-key="title5" data-second-key="para2"></p>
+                        <button class="open-button" onclick="openWindow()">Explore 3D model</button>
+                        <div class="window" id="myWindow">
+                            <div class="window-header">
+                                <span>The STRUCTURE</span>
+                                <span class="close-button" onclick="closeWindow()">X</span>
+                            </div>
+                            <div class="window-content" id="modelContainer"></div>
+                        </div>
+                        
+                        <div class="carousel" id="carousel_5">
+                            <button class="carousel-button prev" onclick="prevSlide('carousel_5')">&#10094;</button>
+                            <div class="carousel-images">
+                                <img src="./data/structure7.jpg" class="carousel-image" alt="Image 1">
+                                <img src="./data/structure3.jpg" class="carousel-image" alt="Image 2">
+                                <img src="./data/structure4.jpg" class="carousel-image" alt="Image 3">
+                                <img src="./data/structure8.jpg" class="carousel-image" alt="Image 4">
+                            </div <button class="carousel-button next" onclick="nextSlide('carousel_5')">
+                            &#10095;</button>
+                        </div>
 
                         <!-- Header 6 -->
-                        <h1 id="header6">Left View</h1>
+                        <h1 id="header6">To be determined</h1>
                         <p id="description61" data-first-key="title6" data-second-key="para1"></p>
                         <p id="description62" data-first-key="title6" data-second-key="para2"></p>
 
-                        <!-- Header 7eeeeeee -->
-                        <h1 id="header7">Surprise me!</h1>
-                        <p>Test text goes here</p>
-                        <p>Another test text goes here</p>
+                        <!-- Header 7 -->
+                        <h1 id="header7">To be determined</h1>
                         <p id="description71" data-first-key="title6" data-second-key="para1"></p>
                         <p id="description72" data-first-key="title6" data-second-key="para2"></p>
-                        <p id="description73" data-first-key="title6" data-second-key="para3"></p>
 
                     </div>
-                    <!-- Go hands free -->
-                    <button class="autoScrollButton" onclick="scrollToBottom()">
-                        <i class="fas fa-arrow-right"></i>
-                    </button>
                     <!-- Scroll to Top Button -->
                     <button class="scrollToTopButton" onclick="scrollToTop()">
                         <i class="fas fa-arrow-up"></i>
@@ -137,6 +190,14 @@
     <script src="./js/cesiumMain.js" type="module"></script>
     <script src="./js/storyScripts.js"></script>
     <script src="./js/storyCarousel.js"></script>
+    <script src="./js/backgroundStyle.js"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="./js/threejsScripts.js"></script>
+
+
     <!-- jQuery, Popper.js, and Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>

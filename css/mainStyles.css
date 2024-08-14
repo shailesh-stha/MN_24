@@ -1,57 +1,82 @@
+* {
+    font-family: -apple-system,BlinkMacSystemFont,Segoe UI Adjusted,Segoe UI,Liberation Sans,sans-serif;
+    /* justify-content: space-between; */
+}
+
 body {
-    width: 100%;
-    max-width: 1500px;
+    width: min(100%, 1600px);
+    height: min(100vh, 500px,);
     position: relative;
     left: 50%;
     transform: translateX(-50%);
-    padding: 20px;
-    font-family: Arial, Helvetica, sans-serif;
-    background-color: rgb(33, 111, 167);
+    padding: 15px;
+    background-color: rgb(58, 58, 58);
+
+    overflow: hidden;
+    /* background: linear-gradient(45deg, #ff4e50, #f9d423, #24c6dc, #514a9d);
+    background-size: 200% 200%;
+    animation: gradientShift 20s ease infinite; */
 }
 
 .headerContainer {
     width: 100%;
     background-color: rgb(255, 255, 255);
-    padding: 20px;
+    padding: 15px;
     margin-bottom: 10px;
 }
 
-.strLogo {
-    /* width: 100%; */
+.headerLogo {
     max-width: 250px;
-    height: auto;
+    max-height: 50px;
 }
 
-.playOverlay {
-    height: 720px;
-    width: 1420px;
-    background: rgba(255, 255, 255, 0.2);
-    box-shadow: 4px 4px 5px #c0c0c0;
-    z-index: 1;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-radius: 20px;
-    position: absolute;
+/* Main body and Map css */
+.cesiumBodyContainer {
+    width: 100%;
+    background-color: rgb(255, 255, 255);
+    padding: 15px;
 }
 
-.playButton {
-    width: 100px; /* Adjust size as needed */
-    height: 100px; /* Adjust size as needed */
-    background-color: rgb(102, 102, 102); /* Circle color */
-    border-radius: 50%;
-    position: absolute;
-    top: 50%; /* Center vertically */
-    left: 50%; /* Center horizontally */
-    transform: translate(-50%, -50%); /* Adjust for exact centering */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    z-index: 2; /* Ensure it is above the rectangle */
+#cesiumMapContainer {
+    width: 100%;
+    height: 80vh;
 }
 
-.playIcon {
-    width: 40px; /* Size of the play icon */
-    height: 40px; /* Size of the play icon */
-    fill: white; /* Color of the play icon */
+.customH1 {
+    font-size: 1.2em;
+    font-weight: bold;
 }
+
+.urlLinks {
+    font-size:15px;
+    text-align: right;
+    padding: 0;
+    margin: -10 0 20px 0;
+}
+
+/* table css */
+table {
+    width: 70%;
+    margin: 30px auto;
+    border-collapse: separate;
+    border-spacing: 0;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+th, td {
+    padding: 10px;
+}
+
+th {
+    font-weight: bold;
+    background-color: #dadada;
+    color: rgb(0, 0, 0);
+}
+
+tr:hover td {
+    background-color: #d1e7dd;
+}
+

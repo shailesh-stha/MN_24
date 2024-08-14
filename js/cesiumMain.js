@@ -18,8 +18,7 @@ try {
 }
 
 // Initialize entities
-const entities = initializeEntities(viewer);
-
+const entities = await initializeEntities(viewer);
 
 function setCameraView(view) {
   viewer.camera.flyTo(cesiumCameraViews[view]);

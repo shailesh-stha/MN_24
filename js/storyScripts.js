@@ -64,31 +64,6 @@ function scrollToBottom() {
   });
 }
 
-// // Scroll to Bottom Function
-// function scrollToBottom() {
-//   const container = document.querySelector('.storyContentContainer');
-//   container.scrollTo({
-//       top: container.scrollHeight,
-//       behavior: 'smooth'
-//   });
-// }
-
-// Custom Scroll to Bottom Function with adjustable speed
-// function scrollToBottom() {
-//   const container = document.querySelector('.storyContentContainer');
-//   const totalScroll = container.scrollHeight - container.clientHeight;
-//   let currentScroll = container.scrollTop;
-
-//   function scrollStep() {
-//       if (currentScroll < totalScroll) {
-//           currentScroll += 1; // Adjust the increment to control scroll speed
-//           container.scrollTop = currentScroll;
-//           window.requestAnimationFrame(scrollStep);
-//       }
-//   }
-//   window.requestAnimationFrame(scrollStep);
-// }
-
 // Print current active header
 document.addEventListener('DOMContentLoaded', () => {
   const container = document.querySelector('.storyContentContainer');
