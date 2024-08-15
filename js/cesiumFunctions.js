@@ -1,6 +1,8 @@
 // 3d Models to Cesium
 const glbUrl = {
-  structureNeb: "./data/3d_model/structureNeb2.glb"
+  structureNeb: "./data/3d_model/structureNeb.glb",
+  structureNeb2: "./data/3d_model/structureNeb2.glb",
+  structureNeb3: "./data/3d_model/structureNeb3.glb"
 };
 
 // Geojson/Json to Cesium in WGS84
@@ -66,8 +68,8 @@ export function addGeoJsonDataSource(viewer, geojsonName, extrudedHeight, polygo
   })
 }
 
-// Load GeoJSON data for target lot
-export function loadGeoJsonData(viewer, geojsonName, showEntities) {
+// Load GeoJSON boundaries as Cesium_3D_Tile overlay for target lot
+function loadGeoJsonData(viewer, geojsonName, showEntities) {
   return Cesium.GeoJsonDataSource.load(geojsonUrl[geojsonName], {
     stroke: Cesium.Color.YELLOW,
     fill: Cesium.Color.YELLOW.withAlpha(0.25),
@@ -84,13 +86,13 @@ export function loadGeoJsonData(viewer, geojsonName, showEntities) {
       // Set the visibility of the entity
       entity.show = showEntities;
     }
-    
     // Return the entities
     return entities;
   }).catch(function(error) {
     console.error('An error occurred loading the GeoJSON file:', error);
   });
 }
+
 
 // Helper function to toggle GeoJSON entities visibility
 function toggleGeoJsonEntities(geojsonEntity, shouldShow) {
@@ -109,9 +111,9 @@ export function initializeEntities(viewer) {
   const buildingEntity2 = addGlb(viewer, 'buildWithoutGround2', 9.211329, 48.489961, 5.5, 130, 0, 0);
   const structureNebEntity = [];
 
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < 8; i++) {
     structureNebEntity.push(
-      addGlb(viewer, 'structureNeb', 11.6447185295 + longitudeOffset * 10 * i, 48.1069104418, 0, 90, 0, 0)
+      addGlb(viewer, 'structureNeb3', 11.6447185295 + longitudeOffset * 10 * i, 48.1069104418, 0, 90, 0, 0)
     );
   };
   // Load GeoJSON data
@@ -125,7 +127,10 @@ export function initializeEntities(viewer) {
 
   buildingEntity1.show = false;
   buildingEntity2.show = false;
-  structureNebEntity.show = false;
+
+  structureNebEntity.forEach(entity => {
+    entity.show = false;
+  });
   return { structureNebEntity, geojsonParent, geojsonChild1, geojsonChild2, geojsonChild3, neuperlachBound, neuperlachBoundReduced };
 }
 
@@ -136,7 +141,9 @@ export function toggleEntities(action, entities) {
   switch (action) {
     // NEB summary
     case 'showBuild1':
-      structureNebEntity.show = false;
+      structureNebEntity.forEach(entity => {
+        entity.show = false;
+      });
       toggleGeoJsonEntities(geojsonParent, false);
       toggleGeoJsonEntities(geojsonChild1, false);
       toggleGeoJsonEntities(geojsonChild2, false);
@@ -146,7 +153,9 @@ export function toggleEntities(action, entities) {
       break;
     // Neuperlach and Microklima
     case 'showBuild2':
-      structureNebEntity.show = false;
+      structureNebEntity.forEach(entity => {
+        entity.show = false;
+      });
       toggleGeoJsonEntities(geojsonParent, false);
       toggleGeoJsonEntities(geojsonChild1, false);
       toggleGeoJsonEntities(geojsonChild2, false);
@@ -155,7 +164,9 @@ export function toggleEntities(action, entities) {
       toggleGeoJsonEntities(neuperlachBoundReduced, true)
       break;
     case 'showBuild3':
-      structureNebEntity.show = false;
+      structureNebEntity.forEach(entity => {
+        entity.show = false;
+      });
       toggleGeoJsonEntities(geojsonParent, true);
       toggleGeoJsonEntities(geojsonChild1, false);
       toggleGeoJsonEntities(geojsonChild2, false);
@@ -164,7 +175,9 @@ export function toggleEntities(action, entities) {
       toggleGeoJsonEntities(neuperlachBoundReduced, false)
       break;
     case 'showBuild4':
-      structureNebEntity.show = false;
+      structureNebEntity.forEach(entity => {
+        entity.show = false;
+      });
       toggleGeoJsonEntities(geojsonParent, false);
       toggleGeoJsonEntities(geojsonChild1, true);
       toggleGeoJsonEntities(geojsonChild2, true);
@@ -173,7 +186,9 @@ export function toggleEntities(action, entities) {
       toggleGeoJsonEntities(neuperlachBoundReduced, false)
       break;
     case 'showBuild5':
-      structureNebEntity.show = true;
+      structureNebEntity.forEach(entity => {
+        entity.show = true;
+      });
       toggleGeoJsonEntities(geojsonParent, false);
       toggleGeoJsonEntities(geojsonChild1, false);
       toggleGeoJsonEntities(geojsonChild2, false);
@@ -182,7 +197,9 @@ export function toggleEntities(action, entities) {
       toggleGeoJsonEntities(neuperlachBoundReduced, false)
       break;
     case 'showBuild6':
-      structureNebEntity.show = true;
+      structureNebEntity.forEach(entity => {
+        entity.show = true;
+      });
       toggleGeoJsonEntities(geojsonParent, false);
       toggleGeoJsonEntities(geojsonChild1, false);
       toggleGeoJsonEntities(geojsonChild2, false);
@@ -192,7 +209,28 @@ export function toggleEntities(action, entities) {
       break;
     // strauch
     case 'showBuild7': 
-    structureNebEntity.show = true;
+    structureNebEntity.forEach((entity, index) => {
+      if (index !== 0) {
+        entity.show = false;
+      } else {
+        entity.show = true;
+      }
+    });
+    toggleGeoJsonEntities(geojsonParent, false);
+    toggleGeoJsonEntities(geojsonChild1, false);
+    toggleGeoJsonEntities(geojsonChild2, false);
+    toggleGeoJsonEntities(geojsonChild3, false);
+    toggleGeoJsonEntities(neuperlachBound, false);
+    toggleGeoJsonEntities(neuperlachBoundReduced, false)
+      break;
+    case 'showBuild8': 
+    structureNebEntity.forEach((entity, index) => {
+      if (index !== 0) {
+        entity.show = false;
+      } else {
+        entity.show = true;
+      }
+    });
     toggleGeoJsonEntities(geojsonParent, false);
     toggleGeoJsonEntities(geojsonChild1, false);
     toggleGeoJsonEntities(geojsonChild2, false);

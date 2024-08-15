@@ -13,7 +13,6 @@
     <link rel="stylesheet" href="./css/mainStyles.css">
     <link rel="stylesheet" href="./css/storyStyles.css">
     <link rel="stylesheet" href="./css/threejsCss.css">
-    <link rel="stylesheet" href="./css/backgroundStyles.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <title>Neuperlach, Munich</title>
@@ -51,20 +50,14 @@
                 <h2 style="text-align: center;">_______________</h2>
 
                 <div class="storyHeaderContainer">
-                    <div class="storyHeader"><a href="#header1"
-                            onclick="setCameraView('view1'); toggleEntities('showBuild1')">NEBourhoods</a></div>
-                    <div class="storyHeader"><a href="#header2"
-                            onclick="setCameraView('view2'); toggleEntities('showBuild2')">Neuperlach</a></div>
-                    <div class="storyHeader"><a href="#header3"
-                            onclick="setCameraView('view3'); toggleEntities('showBuild3')">Simulation</a></div>
-                    <div class="storyHeader"><a href="#header4"
-                            onclick="setCameraView('view4'); toggleEntities('showBuild4')">Area of Interest</a></div>
-                    <div class="storyHeader"><a href="#header5"
-                            onclick="setCameraView('view5'); toggleEntities('showBuild5')">STRUCTURE</a></div>
-                    <div class="storyHeader"><a href="#header6"
-                            onclick="setCameraView('view6'); toggleEntities('showBuild6')">Impact</a></div>
-                    <div class="storyHeader"><a href="#header7"
-                            onclick="setCameraView('view7'); toggleEntities('showBuild7')">Comfort</a></div>
+                    <div class="storyHeader"><a href="#header1" onclick="setCameraView('view1'); toggleEntities('showBuild1')">NEBourhoods</a></div>
+                    <div class="storyHeader"><a href="#header2" onclick="setCameraView('view2'); toggleEntities('showBuild2')">Neuperlach</a></div>
+                    <div class="storyHeader"><a href="#header3" onclick="setCameraView('view3'); toggleEntities('showBuild3')">Simulation</a></div>
+                    <div class="storyHeader"><a href="#header4" onclick="setCameraView('view4'); toggleEntities('showBuild4')">Area of Interest</a></div>
+                    <div class="storyHeader"><a href="#header5" onclick="setCameraView('view5'); toggleEntities('showBuild5')">The STRUCTURE</a></div>
+                    <div class="storyHeader"><a href="#header6" onclick="setCameraView('view6'); toggleEntities('showBuild6')">Impact</a></div>
+                    <div class="storyHeader"><a href="#header7" onclick="setCameraView('view7'); toggleEntities('showBuild7')">Comfort</a></div>
+                    <div class="storyHeader"><a href="#header8" onclick="setCameraView('view8'); toggleEntities('showBuild8')">Insights</a></div>
                 </div>
                 <div class="storyContentContainer">
                     <div class="text-content">
@@ -74,7 +67,7 @@
                         <p id="description12" data-first-key="title1" data-second-key="para2"></p>
                         <p id="description13" data-first-key="title1" data-second-key="para3"></p>
                         <div class="urlLinks">
-                            <p>Read more at: <a href="https://www.nebourhoods.de/en/" target="_blank">Creating
+                            <p>Read more at: <a href="https://www.nebourhoods.de/en/" id="link1" target="_blank">Creating
                                     NEBourhoods Together</a></p>
                         </div>
                         <div class="carousel" id="carousel_0">
@@ -163,19 +156,28 @@
                                 <img src="./data/structure3.jpg" class="carousel-image" alt="Image 2">
                                 <img src="./data/structure4.jpg" class="carousel-image" alt="Image 3">
                                 <img src="./data/structure8.jpg" class="carousel-image" alt="Image 4">
-                            </div <button class="carousel-button next" onclick="nextSlide('carousel_5')">
-                            &#10095;</button>
+                                <img src="./data/structure10.jpg" class="carousel-image" alt="Image 5">
+                            </div>
+                            <button class="carousel-button next" onclick="nextSlide('carousel_5')">&#10095;</button>
                         </div>
 
                         <!-- Header 6 -->
-                        <h1 id="header6">To be determined</h1>
+                        <h1 id="header6">Impact of the STRUCTURE</h1>
                         <p id="description61" data-first-key="title6" data-second-key="para1"></p>
                         <p id="description62" data-first-key="title6" data-second-key="para2"></p>
+                        <button class="open-button" id="togglePolygon">Toggle Raster</button>
 
                         <!-- Header 7 -->
-                        <h1 id="header7">To be determined</h1>
+                        <h1 id="header7">Comfort: To be determined</h1>
                         <p id="description71" data-first-key="title6" data-second-key="para1"></p>
                         <p id="description72" data-first-key="title6" data-second-key="para2"></p>
+                        <p id="description73" data-first-key="title6" data-second-key="para2"></p>
+
+                        <!-- Header 8 -->
+                        <h1 id="header8">Insights: Graphs, To be determined</h1>
+                        <p id="description81" data-first-key="title6" data-second-key="para1"></p>
+                        <p id="description82" data-first-key="title6" data-second-key="para2"></p>
+                        <p id="description83" data-first-key="title6" data-second-key="para2"></p>
 
                     </div>
                     <!-- Scroll to Top Button -->
@@ -190,7 +192,6 @@
     <script src="./js/cesiumMain.js" type="module"></script>
     <script src="./js/storyScripts.js"></script>
     <script src="./js/storyCarousel.js"></script>
-    <script src="./js/backgroundStyle.js"></script>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>

@@ -47,13 +47,6 @@ body {
     font-weight: bold;
 }
 
-.urlLinks {
-    font-size:15px;
-    text-align: right;
-    padding: 0;
-    margin: -10 0 20px 0;
-}
-
 /* table css */
 table {
     width: 70%;

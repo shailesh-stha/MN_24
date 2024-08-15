@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
           const headerTopRelativeToContainer = headerRect.top - containerRect.top;
 
           // Check if the header is within the top 35% of the container
-          if (headerTopRelativeToContainer >= -0.3 && headerTopRelativeToContainer <= container.clientHeight * 0.35) {
+          if (headerTopRelativeToContainer >= container.clientHeight*(-0.3) && headerTopRelativeToContainer <= container.clientHeight * 0.5) {
               currentActiveHeaderIndex = index;
           }
       });

@@ -58,7 +58,7 @@ plane.position.y = 0; // Position the plane below the model
 scene.add(plane);
 // Load the GLTF model
 const loader = new THREE.GLTFLoader();
-loader.load('./data/3d_model/structureNeb2.glb', result => {
+loader.load('./data/3d_model/structureNeb3.glb', result => {
     model = result.scene;
     model.scale.set(1,1,1);
     model.position.y = 0;

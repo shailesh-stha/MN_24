@@ -1,19 +1,36 @@
-/* Story css */
 .storyHeaderContainer {
     display: flex;
     flex-wrap: wrap;
-    background: linear-gradient(to right, #cbcbcb, #f5f5f5);
+    background: linear-gradient(to right, rgb(20,20,20), rgb(255,62,181,0.9));
     padding: 5px;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
+    width: 100%;
 }
 
 .storyHeader {
-    min-width: 125px;
     text-align: center;
     padding: 5px;
-    margin: 5px;
+    margin: 5px auto;
+    flex: 1 0 25%;
+}
+
+a {
+    color: white;
     font-size: 1.1em;
     font-weight: bold;
+}
+
+.urlLinks {
+    font-size:15px;
+    text-align: right;
+    padding: 0;
+    margin: -10 0 20px 0;
+}
+
+#link1 {
+    color: rgb(255, 62, 181);
+    font-size: 1em;
+    font-weight: normal;
 }
 
 .storyHeader a:hover {
@@ -23,10 +40,8 @@
 
 /* Contents */
 .storyContentContainer {
-    /* padding-top: 10px; */
     height: 67.5vh;
     overflow-y: auto;
-    background-color: #f5f5f5;
 }
 
 .text-content {
