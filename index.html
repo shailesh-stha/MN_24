@@ -3,58 +3,66 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <!-- CesiumJS Library -->
     <script src="https://cesium.com/downloads/cesiumjs/releases/1.118/Build/Cesium/Cesium.js"></script>
     <link href="https://cesium.com/downloads/cesiumjs/releases/1.118/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
+    
     <!-- Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
     <!-- Custom CSS -->
     <link rel="stylesheet" href="./css/mainStyles.css">
     <link rel="stylesheet" href="./css/storyStyles.css">
     <link rel="stylesheet" href="./css/threejsCss.css">
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <title>Neuperlach, Munich</title>
-
-</head>
+</head
 
 <body>
     <!-- Header Section -->
-    <header class="headerContainer">
+    <header class="webHeaderContainer">
         <div class="row">
             <div class="col-8">
                 <a href="https://www.str-ucture.com/" target="_blank">
-                    <img src="./data/240209_str-ucture_logo_rgb-02.jpg" alt="str.ucture GmbH" class="headerLogo">
+                    <img src="./data/240209_str-ucture_logo_rgb-02.jpg" alt="str.ucture GmbH" class="webHeaderLogo">
                 </a>
             </div>
             <div class="col-4">
                 <a href="https://www.nebourhoods.de/en" target="_blank">
-                    <img src="./data/NEB_logo_cropped.png" alt="Creating NEBourhoods" class="headerLogo">
+                    <img src="./data/NEB_logo_cropped.png" alt="Creating NEBourhoods" class="webHeaderLogo">
                 </a>
             </div>
         </div>
     </header>
 
+    <nav>
+        <a class="pages" href="index.html">Home</a>
+        <a class="pages" href="graphs.html">Graphs and Diagrams</a>
+    </nav>
+    
+
     <!-- Main Content Section -->
-    <div class="cesiumBodyContainer">
+    <div class="mainBodyContainer">
         <div class="row">
-            <!-- Cesium Viewer Container -->
+            <!-- Cesium Map Container -->
             <div class="col-md-7 bg-white">
                 <h2 class="customH1">Microclimate simulation of Neuperlach, Munich (with Palm-4u)</h2>
                 <div id="cesiumMapContainer"></div>
+                <!-- <div id="cesiumMapContainerEmpty"></div> -->
             </div>
 
             <!-- Information Section -->
             <div class="col-md-5 bg-white">
-                <h2 style="text-align: center;">_______________</h2>
+                <h2 style="text-align: center;">_</h2>
 
                 <div class="storyHeaderContainer">
                     <div class="storyHeader"><a href="#header1" onclick="setCameraView('view1'); toggleEntities('showBuild1')">NEBourhoods</a></div>
                     <div class="storyHeader"><a href="#header2" onclick="setCameraView('view2'); toggleEntities('showBuild2')">Neuperlach</a></div>
                     <div class="storyHeader"><a href="#header3" onclick="setCameraView('view3'); toggleEntities('showBuild3')">Simulation</a></div>
                     <div class="storyHeader"><a href="#header4" onclick="setCameraView('view4'); toggleEntities('showBuild4')">Area of Interest</a></div>
-                    <div class="storyHeader"><a href="#header5" onclick="setCameraView('view5'); toggleEntities('showBuild5')">The STRUCTURE</a></div>
+                    <div class="storyHeader"><a href="#header5" onclick="setCameraView('view5'); toggleEntities('showBuild5')">Bambusschloss</a></div>
                     <div class="storyHeader"><a href="#header6" onclick="setCameraView('view6'); toggleEntities('showBuild6')">Impact</a></div>
                     <div class="storyHeader"><a href="#header7" onclick="setCameraView('view7'); toggleEntities('showBuild7')">Comfort</a></div>
                     <div class="storyHeader"><a href="#header8" onclick="setCameraView('view8'); toggleEntities('showBuild8')">Insights</a></div>
@@ -188,6 +196,22 @@
             </div>
         </div>
     </div>
+        
+    <footer class="webFooterContainer">
+        <p>
+            Powered by:
+            <a href="https://www.str-ucture.com/" target="_blank">
+                <img src="./data/240209_str-ucture_logo_rgb-02.jpg" alt="str.ucture GmbH"
+                    style="height: 1.75vh; vertical-align: middle;">
+            </a>and
+            <a href="https://cesium.com/" target="_blank">
+                <img src="https://cesium.com/logo-kit/cesiumjs/CesiumJS_dark_color.png" alt="CesiumJS Logo"
+                    style="height: 2vh; vertical-align: middle;">
+            </a>
+
+        </p>
+    </footer>
+
     <!-- Custom JS Script -->
     <script src="./js/cesiumMain.js" type="module"></script>
     <script src="./js/storyScripts.js"></script>
@@ -198,11 +222,11 @@
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
     <script src="./js/threejsScripts.js"></script>
 
-
     <!-- jQuery, Popper.js, and Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/js/bootstrap.min.js"></script>
 </body>
+
 
 </html>

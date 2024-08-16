@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graphs and Diagrams</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="./css/mainStyles.css">
+    <link rel="stylesheet" href="./css/graphsStyles.css">
+    <link rel="stylesheet" href="./css/leafTest.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+
+<body>
+    <!-- Header Section -->
+    <header class="webHeaderContainer">
+        <div class="row">
+            <div class="col-8">
+                <a href="https://www.str-ucture.com/" target="_blank">
+                    <img src="./data/240209_str-ucture_logo_rgb-02.jpg" alt="str.ucture GmbH" class="webHeaderLogo">
+                </a>
+            </div>
+            <div class="col-4">
+                <a href="https://www.nebourhoods.de/en" target="_blank">
+                    <img src="./data/NEB_logo_cropped.png" alt="Creating NEBourhoods" class="webHeaderLogo">
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <nav>
+        <a class="pages" href="index.html">Home</a>
+        <a class="pages" href="graphs.html">Graphs and Diagrams</a>
+    </nav>
+    
+    <div class="mainBodyContainer">
+        <div class="row">
+            <div class="col-md-3 bg-white">
+                <h2 class="customH1">DUMMY HEADER GOES HERE</h2>
+                <div class="dropdown-container">
+                    <p>Please select variable</p>
+                    <select id="shapeSelector" onchange="drawShape()">
+                        <option value="1" selected>Air Temperature</option>
+                        <option value="2">Wind Speed</option>
+                        <option value="3">PET</option>
+                        <option value="3">UTCI</option>
+                    </select>
+                </div>
+                <div class="dropdown-container">
+                    <p>Please select Location</p>
+                    <select id="locationSelector" onchange="drawShape()">
+                        <option value="1" selected>AOI1</option>
+                        <option value="2">AOI2</option>
+                        <option value="3">AOI3</option>
+                        <option value="3">AOI4</option>
+                    </select>
+                </div>
+            </div>
+    
+            <div class="col-md-9 bg-white">
+                <h2 class="customH1">Second DUMMY HEADER GOES HERE</h2>
+                <!-- <div id="shapeContainer" class="shape-container"></div> -->
+                <div id="map">Well</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Load Leaflet JS first -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <!-- Then load your custom JS files -->
+    <script src="./js/graphs.js"></script>
+    <script src="./js/leafTest.js"></script>
+
+</body>
+
+</html>

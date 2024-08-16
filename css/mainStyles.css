@@ -1,45 +1,73 @@
 * {
     font-family: -apple-system,BlinkMacSystemFont,Segoe UI Adjusted,Segoe UI,Liberation Sans,sans-serif;
-    /* justify-content: space-between; */
 }
 
 body {
-    width: min(100%, 1600px);
+    width: min(90%, 200vh, 1750px);
     height: min(100vh, 500px,);
+    margin: 7.5px 10px;
     position: relative;
     left: 50%;
     transform: translateX(-50%);
-    padding: 15px;
-    background-color: rgb(58, 58, 58);
 
+    background: rgb(8,0,153);
+    background: linear-gradient(90deg, rgb(3, 0, 50) 0%, rgb(124, 0, 49) 100%);
     overflow: hidden;
-    /* background: linear-gradient(45deg, #ff4e50, #f9d423, #24c6dc, #514a9d);
-    background-size: 200% 200%;
-    animation: gradientShift 20s ease infinite; */
 }
 
-.headerContainer {
+.webHeaderContainer {
     width: 100%;
     background-color: rgb(255, 255, 255);
-    padding: 15px;
-    margin-bottom: 10px;
+    padding: 10px;
+    margin-bottom: 5px;
 }
 
-.headerLogo {
+.webHeaderLogo {
     max-width: 250px;
-    max-height: 50px;
+    max-height: 40px;
+}
+
+nav {
+    width:100%;
+    background-color: rgb(255, 255, 255);
+    padding: 10px;
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+nav a {
+    color:  rgb(255, 62, 181);
+    padding: 5px;
+    margin: 0px 10px;
+}
+
+.webFooterContainer {
+    width: 100%;
+    height: 25px;
+    margin-top: 5px;
+    background-color: rgb(255, 255, 255);
+    color: black;
 }
 
 /* Main body and Map css */
-.cesiumBodyContainer {
+.mainBodyContainer {
+    height: 80vh;
     width: 100%;
     background-color: rgb(255, 255, 255);
     padding: 15px;
+    overflow: hidden;
 }
 
 #cesiumMapContainer {
     width: 100%;
-    height: 80vh;
+    height: 73vh;
+    border-bottom: 1px solid black;
+}
+#cesiumMapContainerEmpty {
+    width: 100%;
+    height: 73vh;
+    border: 1px solid black;
 }
 
 .customH1 {
@@ -58,17 +86,14 @@ table {
     border-radius: 10px;
     overflow: hidden;
 }
-
 th, td {
     padding: 10px;
 }
-
 th {
     font-weight: bold;
     background-color: #dadada;
     color: rgb(0, 0, 0);
 }
-
 tr:hover td {
     background-color: #d1e7dd;
 }

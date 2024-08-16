@@ -99,6 +99,7 @@ viewer.camera.setView(cesiumCameraViews.view1);
 window.setCameraView = setCameraView;
 window.toggleEntities = (action) => toggleEntities(action, entities);
 
+
 // Get camera info
 var handler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
 handler.setInputAction(function() {
