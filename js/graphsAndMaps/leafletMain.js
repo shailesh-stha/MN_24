@@ -1,20 +1,7 @@
 // Global variable to store the selected GeoTIFF file URL
 let urlToGeoTiffFile;
 
-// Mapping from dropdown values to GeoTIFF URLs
 const geotiffUrl = {
-  airTempProjBSN02: "./data/raster/BS_ta_2m_proj_N02.tif",
-  tsurfProjBSN02: "./data/raster/BS_tsurf_proj_N02.tif",
-  bioPETProjBSN02: "./data/raster/BS_bio_pet_proj_N02.tif",
-  bioUTCIProjBSN02: "./data/raster/BS_bio_utci_proj_N02.tif",
-
-  airTempProjBSN03: "./data/raster/BS_ta_2m_proj_N03.tif",
-  tsurfProjBSN03: "./data/raster/BS_tsurf_proj_N03.tif",
-  bioPETProjBSN03: "./data/raster/BS_bio_pet_proj_N03.tif",
-  bioUTCIProjBSN03: "./data/raster/BS_bio_utci_proj_N03.tif"
-};
-
-const geotiffUrl2 = {
   N02: {
     airTempProjBS:  "./data/raster/BS_ta_2m_proj_N02.tif",
     tsurfProjBS:    "./data/raster/BS_tsurf_proj_N02.tif",
@@ -26,15 +13,13 @@ const geotiffUrl2 = {
     tsurfProjBS:    "./data/raster/BS_tsurf_proj_N03.tif",
     bioPETProjBS:   "./data/raster/BS_bio_pet_proj_N03.tif",
     bioUTCIProjBS:  "./data/raster/BS_bio_utci_proj_N03.tif"
+  },
+  N04: {
+    airTempProjBS:  "./data/raster/BS_ta_2m_proj_N04.tif",
+    tsurfProjBS:    "./data/raster/BS_tsurf_proj_N04.tif",
+    bioPETProjBS:   "./data/raster/BS_bio_pet_proj_N04.tif",
+    bioUTCIProjBS:  "./data/raster/BS_bio_utci_proj_N04.tif"
   }
-};
-
-// Mapping from dropdown selection values to GeoTIFF keys
-const valueToKeyMap = {
-  1: 'airTempProjBSN02',
-  2: 'tsurfProjBSN02',
-  3: 'bioPETProjBSN02',
-  4: 'bioUTCIProjBSN02'
 };
 
 // Get references to HTML elements
@@ -43,15 +28,26 @@ const sliderValue = document.querySelector('.slider-value');
 
 // Update the selected GeoTIFF URL based on the dropdown selection
 function updateGeoTiffUrl() {
-  const selectedValue = document.getElementById('variableSelector').value;
-  const selectedKey = valueToKeyMap[selectedValue];
-  urlToGeoTiffFile = geotiffUrl[selectedKey];
+  const selectedVariableValue = document.getElementById('variableSelector').value;
+  const selectedLocationvalue = document.getElementById('locationSelector').value;
+  urlToGeoTiffFile = geotiffUrl[selectedLocationvalue][selectedVariableValue];
+
+  console.log(selectedVariableValue);
+  if (selectedVariableValue == "airTempProjBS") {
+    var yaxis_range = [18, 36];
+  } else if (selectedVariableValue == "tsurfProjBS") {
+    var yaxis_range = [290, 322];
+  } else if (selectedVariableValue == 'bioPETProjBS') {
+    var yaxis_range = [16, 40];
+  } else if (selectedVariableValue == 'bioUTCIProjBS') {
+    var yaxis_range = [18, 36];
+  }
 
   if (!urlToGeoTiffFile) {
     console.error('GeoTIFF URL is undefined. Please check your dropdown value mapping.');
     return;
   }
-  // console.log('Selected GeoTIFF URL:', urlToGeoTiffFile);
+  console.log('Selected GeoTIFF URL:', urlToGeoTiffFile);
 
   fetch(urlToGeoTiffFile).then((response) => {
     if (!response.ok) {
@@ -62,10 +58,8 @@ function updateGeoTiffUrl() {
   .then(arrayBuffer => parseGeoraster(arrayBuffer))
   .then(georaster => {
     const nodataValue = georaster.noDataValue;
-    // List to store mean values for bands 4 to 10
     const meanValuesList = [];
 
-    // Calculate mean values for bands 4 to 10
     for (let band = 0; band <= 24; band++) {
       let bandSum = 0;
       let bandValidPixelCount = 0;
@@ -83,8 +77,8 @@ function updateGeoTiffUrl() {
       const bandMeanValue = bandValidPixelCount > 0 ? bandSum / bandValidPixelCount : null;
       meanValuesList.push(bandMeanValue);
     }
-    console.log(`Mean values for bands:`, meanValuesList);
-    console.log(`Length of bands:`, meanValuesList.length);
+    // console.log(`Mean values for bands:`, meanValuesList);
+    // console.log(`Length of bands:`, meanValuesList.length);
 
     var trace1 = {
       x: [],
@@ -143,7 +137,7 @@ function updateGeoTiffUrl() {
             size: 18,
           },
         },
-        range: [15, 40],
+        range: yaxis_range,
         dtick: 2,
         showgrid: true,
         gridcolor: "rgba(200, 200, 200, 0.5)",
@@ -160,7 +154,7 @@ function updateGeoTiffUrl() {
       paper_bgcolor: "white",
       showlegend: false,
       margin: {
-        l: 60,
+        l: 80,
         r: 30,
         b: 60,
         t: 60,
@@ -181,10 +175,10 @@ function updateGeoTiffUrl() {
           y: [[fullY[i]]]
         }, [0]);
         i++;
-        setTimeout(addPoint, 10);
+        setTimeout(addPoint, 15);
       }
     }
-    setTimeout(addPoint, 10);    
+    setTimeout(addPoint, 100);    
   });
   updateGeoTiffLayer();
 }
@@ -196,10 +190,12 @@ function updateGeoTiffLayer() {
     return;
   }
 
-  const selectedValue = document.getElementById('variableSelector').value;
+  const selectedVariableValue = document.getElementById('variableSelector').value;
+  const selectedLocaitonValue = document.getElementById('locationSelector').value;
   const bandNumber = Number(timeSlider.value);
 
-  console.log('Current GeoTIFF Key:', valueToKeyMap[selectedValue]);
+  console.log('Current Location Key:', selectedLocaitonValue);
+  console.log('Current GeoTIFF URL:', geotiffUrl[selectedLocaitonValue][selectedVariableValue]);
   console.log('Current Band Number:', bandNumber);
 
   loadGeoTiffToMap(urlToGeoTiffFile, bandNumber).then((layer) => {
@@ -208,7 +204,7 @@ function updateGeoTiffLayer() {
     }
     currentLayer = layer;
     currentLayer.addTo(map);
-    map.fitBounds(currentLayer.getBounds());
+    // map.fitBounds(currentLayer.getBounds());
   }).catch(error => {
     console.error('Error loading GeoTIFF:', error);
   });
@@ -224,6 +220,7 @@ function updateTimeValue(value) {
 
 // Event listener for dropdown value change
 document.getElementById('variableSelector').addEventListener('change', updateGeoTiffUrl);
+document.getElementById('locationSelector').addEventListener('change', updateGeoTiffUrl);
 
 // Event listener for time slider change
 timeSlider.addEventListener('change', function() {
@@ -236,7 +233,7 @@ const map = L.map("map", {
   zoomDelta: 0.2,
   zoomSnap: 0.2,
   wheelPxPerZoomLevel: 150,
-}).setView([48.106, 11.645], 16.4);
+}).setView([48.10413, 11.6494], 15.2);
 
 L.control.fullscreen({
   position: 'topleft', // You can change the position to 'topright', 'bottomleft', or 'bottomright'
@@ -305,11 +302,17 @@ function loadGeoTiffToMap(url, bandNumber) {
       minValue = Math.floor(minValue);
       maxValue = Math.ceil(maxValue);
 
+      // Temporary fix for tsurf (will require update in future)
+      if (maxValue >=100) {
+        minValue = 295;
+        maxValue = 340;
+      }
+      
       console.log(`Band ${bandNumber} - Rounded Min Value: ${minValue}, Rounded Max Value: ${maxValue}, Mean Value: ${meanValue}`);
 
       const colors = ["darkblue", "blue", "cyan", "lightgreen", "green", "yellowgreen", "yellow", "orange", "orangered", "red"];
       const colorMapping = [];
-      const interval = (maxValue - minValue) / 10;
+      const interval = (maxValue - minValue) / 12;
 
       for (let i = 0; i < 10; i++) {
         const currentMin = minValue + i * interval;
@@ -343,4 +346,36 @@ function loadGeoTiffToMap(url, bandNumber) {
 document.addEventListener('DOMContentLoaded', function() {
   updateTimeValue(timeSlider.value);
   updateGeoTiffUrl();
+});
+
+// // Track whether the map center and zoom level
+// let isFitToBounds = false;
+// // Add an event listener for keydown events
+// document.addEventListener('keydown', function(event) {
+//   if (event.key === 'r' || event.key === 'R') {
+//     map.setView([48.10413, 11.6494], 15.2);
+//     isFitToBounds = false;
+//   }
+//   if (event.code === 'Space') {
+//     if (isFitToBounds) {
+//       map.setView([48.10413, 11.6494], 15.2);
+//     } else {
+//       map.fitBounds(currentLayer.getBounds());
+//     }
+//     isFitToBounds = !isFitToBounds;
+//   }
+// });
+
+// Add an event listener for keydown events
+document.addEventListener('keydown', function(event) {
+  // Check if the 'r' key is pressed
+  if (event.key === 'r' || event.key === 'R') {
+    // Set the map view to the first specified coordinates and zoom level
+    map.setView([48.10413, 11.6494], 15.2);
+  }
+
+  // Check if the spacebar is pressed
+  if (event.code === 'Space') {
+    map.fitBounds(currentLayer.getBounds());
+  }
 });

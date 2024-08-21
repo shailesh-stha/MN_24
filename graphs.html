@@ -50,28 +50,30 @@
                 <div class="dropdown-container">
                     <label>Variable</label>
                     <select id="variableSelector">
-                        <option value="1" selected>Air Temperature</option>
-                        <option value="2">Surface Temperature</option>
-                        <option value="3">PET</option>
-                        <option value="3">UTCI</option>
+                        <option value="airTempProjBS" selected>Air Temperature</option>
+                        <option value="tsurfProjBS">Surface Temperature</option>
+                        <option value="bioPETProjBS">PET</option>
+                        <option value="bioUTCIProjBS">UTCI</option>
                     </select>
                 </div>
     
                 <div class="dropdown-container">
                     <label>Location</label>
                     <select id="locationSelector">
-                        <option value="1" selected>Neuperlach - Overall</option>
-                        <option value="2">International Montessorischule</option>
-                        <option value="3">Neuperlach Nord</option>
-                        <option value="3">Neuperlach Zentrum</option>
+                        <!-- N02 -->
+                        <option value="N02" selected>International Montessorischule</option>
+                        <!-- N04 -->
+                        <option value="N04">Neuperlach Nord</option>
+                        <!-- N03 -->
+                        <option value="N03">Neuperlach Zentrum</option>
                     </select>
                 </div>
 
                 <div class="dropdown-container" id="simulationScenarioSelection">
                     <label>Simulation Scenario</label>
                     <select id="scenarioSelector">
-                        <option value="1" selected>Baseline</option>
-                        <option value="2">The STRUCTURE</option>
+                        <option value="baseline" selected>Baseline</option>
+                        <option value="theStructure">The STRUCTURE</option>
                     </select>
                 </div>
     
@@ -87,6 +89,9 @@
             <div class="col-md-4 bg-white">
                 <!-- <h2 class="customH1">&nbsp</h2> -->
                 <div id="map"></div>
+                <p style="font-weight: bold; margin:0">Note:</p>
+                <p style="margin:0; font-size:0.9em;">Press <strong>'R'</strong> to reset view</p>
+                <p style="margin:0; font-size:0.9em">Press <strong>'Space bar'</strong> to zoom to the selected location</p>
             </div>
             
             <div class="col-md-5 bg-white">
@@ -120,14 +125,10 @@
     <script src="https://unpkg.com/georaster-layer-for-leaflet/dist/georaster-layer-for-leaflet.min.js"></script>
     <script src="https://unpkg.com/leaflet.fullscreen/Control.FullScreen.js"></script>
 
-    <script src="https://cdn.osmbuildings.org/classic/0.2.2b/OSMBuildings-Leaflet.js"></script>
-
-
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 
     <!-- Custom JS Script -->
     <script src="./js/general/generalScripts.js"></script>
-    
     <script src="./js/graphsAndMaps/leafletMain.js" type="module"></script>
     <script src="./js/graphsAndMaps/generalScripts.js" type="module"></script>
 
