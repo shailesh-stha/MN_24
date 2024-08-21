@@ -1,7 +1,7 @@
 .storyHeaderContainer {
     display: flex;
     flex-wrap: wrap;
-    background: linear-gradient(to right, rgb(20,20,20), rgb(255,62,181,0.9));
+    background: linear-gradient(to right, rgb(20,20,20), rgba(201, 40, 139, 0.9));
     padding: 5px;
     margin-bottom: 5px;
     width: 100%;
@@ -9,7 +9,7 @@
 
 .storyHeader {
     text-align: center;
-    padding: 5px;
+    padding: 2px;
     margin: 5px auto;
     flex: 1 0 25%;
 }
@@ -78,8 +78,8 @@ p[id^="description"] {
 /* Image Carousel */
 .carousel {
     position: relative;
-    width: 80%;
-    max-height: 300px;
+    width: 60%;
+    max-height: 280px;
     position: relative;
     left: 50%;
     transform: translateX(-50%);

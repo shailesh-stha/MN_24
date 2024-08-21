@@ -1,24 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-
+    
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <!-- CesiumJS Library -->
     <script src="https://cesium.com/downloads/cesiumjs/releases/1.118/Build/Cesium/Cesium.js"></script>
     <link href="https://cesium.com/downloads/cesiumjs/releases/1.118/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
-    
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    
     <!-- Custom CSS -->
     <link rel="stylesheet" href="./css/mainStyles.css">
     <link rel="stylesheet" href="./css/storyStyles.css">
-    <link rel="stylesheet" href="./css/threejsCss.css">
+    <link rel="stylesheet" href="./css/threejsStyles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <title>Neuperlach, Munich</title>
-</head
+</head>
 
 <body>
     <!-- Header Section -->
@@ -26,23 +23,22 @@
         <div class="row">
             <div class="col-8">
                 <a href="https://www.str-ucture.com/" target="_blank">
-                    <img src="./data/240209_str-ucture_logo_rgb-02.jpg" alt="str.ucture GmbH" class="webHeaderLogo">
+                    <img class="webHeaderLogo" src="./data/images/240209_str-ucture_logo_rgb-02.jpg" alt="str.ucture GmbH">
                 </a>
             </div>
             <div class="col-4">
                 <a href="https://www.nebourhoods.de/en" target="_blank">
-                    <img src="./data/NEB_logo_cropped.png" alt="Creating NEBourhoods" class="webHeaderLogo">
+                    <img  class="webHeaderLogo" src="./data/images/NEB_logo_cropped.png" alt="Creating NEBourhoods">
                 </a>
             </div>
         </div>
     </header>
 
-    <nav>
+    <nav id="navbar">
         <a class="pages" href="index.html">Home</a>
         <a class="pages" href="graphs.html">Graphs and Diagrams</a>
     </nav>
     
-
     <!-- Main Content Section -->
     <div class="mainBodyContainer">
         <div class="row">
@@ -58,14 +54,14 @@
                 <h2 style="text-align: center;">_</h2>
 
                 <div class="storyHeaderContainer">
-                    <div class="storyHeader"><a href="#header1" onclick="setCameraView('view1'); toggleEntities('showBuild1')">NEBourhoods</a></div>
-                    <div class="storyHeader"><a href="#header2" onclick="setCameraView('view2'); toggleEntities('showBuild2')">Neuperlach</a></div>
-                    <div class="storyHeader"><a href="#header3" onclick="setCameraView('view3'); toggleEntities('showBuild3')">Simulation</a></div>
-                    <div class="storyHeader"><a href="#header4" onclick="setCameraView('view4'); toggleEntities('showBuild4')">Area of Interest</a></div>
-                    <div class="storyHeader"><a href="#header5" onclick="setCameraView('view5'); toggleEntities('showBuild5')">Bambusschloss</a></div>
-                    <div class="storyHeader"><a href="#header6" onclick="setCameraView('view6'); toggleEntities('showBuild6')">Impact</a></div>
-                    <div class="storyHeader"><a href="#header7" onclick="setCameraView('view7'); toggleEntities('showBuild7')">Comfort</a></div>
-                    <div class="storyHeader"><a href="#header8" onclick="setCameraView('view8'); toggleEntities('showBuild8')">Insights</a></div>
+                    <div class="storyHeader"><a class="storyHeaderElement" href="#header1" onclick="setCameraView('view1'); toggleEntities('showBuild1')">NEBourhoods</a></div>
+                    <div class="storyHeader"><a class="storyHeaderElement" href="#header2" onclick="setCameraView('view2'); toggleEntities('showBuild2')">Neuperlach</a></div>
+                    <div class="storyHeader"><a class="storyHeaderElement" href="#header3" onclick="setCameraView('view3'); toggleEntities('showBuild3')">Simulation</a></div>
+                    <div class="storyHeader"><a class="storyHeaderElement" href="#header4" onclick="setCameraView('view4'); toggleEntities('showBuild4')">Area of Interest</a></div>
+                    <div class="storyHeader"><a class="storyHeaderElement" href="#header5" onclick="setCameraView('view5'); toggleEntities('showBuild5')">Bambusschloss</a></div>
+                    <div class="storyHeader"><a class="storyHeaderElement" href="#header6" onclick="setCameraView('view6'); toggleEntities('showBuild6')">Impact</a></div>
+                    <div class="storyHeader"><a class="storyHeaderElement" href="#header7" onclick="setCameraView('view7'); toggleEntities('showBuild7')">Comfort</a></div>
+                    <div class="storyHeader"><a class="storyHeaderElement" href="#header8" onclick="setCameraView('view8'); toggleEntities('showBuild8')">Insights</a></div>
                 </div>
                 <div class="storyContentContainer">
                     <div class="text-content">
@@ -81,9 +77,9 @@
                         <div class="carousel" id="carousel_0">
                             <button class="carousel-button prev" onclick="prevSlide('carousel_0')">&#10094;</button>
                             <div class="carousel-images">
-                                <img src="./data/ai_img_1.png" class="carousel-image" alt="Image 1">
-                                <img src="./data/ai_img_2.png" class="carousel-image" alt="Image 2">
-                                <img src="./data/ai_img_3.png" class="carousel-image" alt="Image 3">
+                                <img src="./data/images/ai_img_1.png" class="carousel-image" alt="Image 1">
+                                <img src="./data/images/ai_img_2.png" class="carousel-image" alt="Image 2">
+                                <img src="./data/images/ai_img_3.png" class="carousel-image" alt="Image 3">
                             </div>
                             <button class="carousel-button next" onclick="nextSlide('carousel_0')">&#10095;</button>
                         </div>
@@ -96,9 +92,9 @@
                         <div class="carousel" id="carousel_1">
                             <button class="carousel-button prev" onclick="prevSlide('carousel_1')">&#10094;</button>
                             <div class="carousel-images">
-                                <img src="./data/NEBourhoods.png" class="carousel-image" alt="Image 1">
-                                <img src="./data/ai_img_4.png" class="carousel-image" alt="Image 2">
-                                <img src="./data/ai_img_5.png" class="carousel-image" alt="Image 3">
+                                <img src="./data/images/NEBourhoods.png" class="carousel-image" alt="Image 1">
+                                <img src="./data/images/ai_img_4.png" class="carousel-image" alt="Image 2">
+                                <img src="./data/images/ai_img_5.png" class="carousel-image" alt="Image 3">
                             </div>
                             <button class="carousel-button next" onclick="nextSlide('carousel_1')">&#10095;</button>
                         </div>
@@ -110,8 +106,8 @@
                         <div class="carousel" id="carousel_2">
                             <button class="carousel-button prev" onclick="prevSlide('carousel_2')">&#10094;</button>
                             <div class="carousel-images">
-                                <img src="./data/ai_img_6.png" class="carousel-image" alt="Image 1">
-                                <img src="./data/overviewMap.jpg" class="carousel-image" alt="Image 2">
+                                <img src="./data/images/ai_img_6.png" class="carousel-image" alt="Image 1">
+                                <img src="./data/images/overviewMap.jpg" class="carousel-image" alt="Image 2">
                             </div>
                             <button class="carousel-button next" onclick="nextSlide('carousel_2')">&#10095;</button>
                         </div>
@@ -160,11 +156,11 @@
                         <div class="carousel" id="carousel_5">
                             <button class="carousel-button prev" onclick="prevSlide('carousel_5')">&#10094;</button>
                             <div class="carousel-images">
-                                <img src="./data/structure7.jpg" class="carousel-image" alt="Image 1">
-                                <img src="./data/structure3.jpg" class="carousel-image" alt="Image 2">
-                                <img src="./data/structure4.jpg" class="carousel-image" alt="Image 3">
-                                <img src="./data/structure8.jpg" class="carousel-image" alt="Image 4">
-                                <img src="./data/structure10.jpg" class="carousel-image" alt="Image 5">
+                                <img src="./data/images/structure7.jpg" class="carousel-image" alt="Image 1">
+                                <img src="./data/images/structure3.jpg" class="carousel-image" alt="Image 2">
+                                <img src="./data/images/structure4.jpg" class="carousel-image" alt="Image 3">
+                                <img src="./data/images/structure8.jpg" class="carousel-image" alt="Image 4">
+                                <img src="./data/images/structure10.jpg" class="carousel-image" alt="Image 5">
                             </div>
                             <button class="carousel-button next" onclick="nextSlide('carousel_5')">&#10095;</button>
                         </div>
@@ -201,32 +197,34 @@
         <p>
             Powered by:
             <a href="https://www.str-ucture.com/" target="_blank">
-                <img src="./data/240209_str-ucture_logo_rgb-02.jpg" alt="str.ucture GmbH"
+                <img src="./data/images/240209_str-ucture_logo_rgb-02.jpg" alt="str.ucture GmbH"
                     style="height: 1.75vh; vertical-align: middle;">
             </a>and
             <a href="https://cesium.com/" target="_blank">
                 <img src="https://cesium.com/logo-kit/cesiumjs/CesiumJS_dark_color.png" alt="CesiumJS Logo"
                     style="height: 2vh; vertical-align: middle;">
             </a>
-
         </p>
     </footer>
 
-    <!-- Custom JS Script -->
-    <script src="./js/cesiumMain.js" type="module"></script>
-    <script src="./js/storyScripts.js"></script>
-    <script src="./js/storyCarousel.js"></script>
-    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
-    <script src="./js/threejsScripts.js"></script>
+
+    <!-- Custom JS Script -->
+    <script src="./js/cesium/cesiumMain.js" type="module"></script>
+    <script src="./js/cesium/cesiumFunctions.js" type="module"></script>
+
+    <script src="./js/general/generalScripts.js"></script>
+    <script src="./js/general/storyCarousel.js"></script>
+    <script src="./js/general/storyScripts.js"></script>
+
+    <script src="./js/threejs/threejsScripts.js"></script>
 
     <!-- jQuery, Popper.js, and Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/js/bootstrap.min.js"></script>
 </body>
-
 
 </html>
