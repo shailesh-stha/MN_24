@@ -1,25 +1,3 @@
-var parse_georaster = require("georaster");
-
-// Initialize the map and set its view to Neuperlach, Munich
-var map = L.map('map').setView([48.1048, 11.6463], 14);
-
-// Add the OpenStreetMap_DE tiles (without adding to the map yet)
-var OpenStreetMap_DE = L.tileLayer('https://tile.openstreetmap.de/{z}/{x}/{y}.png', {
-    maxZoom: 18,
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-});
-
-// Add the OpenStreetMap tiles to the map
-var OpenStreetMap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-}).addTo(map);
-
-// // Optional: Add a marker at the center point
-// L.marker([48.1048, 11.6463]).addTo(map)
-//     .bindPopup('Neuperlach, Munich')
-//     .closePopup();
-
 // Create individual layer groups for each GeoJSON file
 var childILayer = L.layerGroup();
 var childIILayer = L.layerGroup();
