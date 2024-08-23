@@ -19,3 +19,9 @@ export const geotiffUrl = {
       bioUTCIProjBS:  "./data/raster/BS_bio_utci_proj_N04.tif"
     }
   };
+
+export const geojsonBuildingUrl = {
+  N02: "./data/buildingN02.geojson",
+  N03: "./data/buildingN03.geojson",
+  N04: "./data/buildingN04.geojson",
+}
