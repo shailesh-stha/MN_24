@@ -1,5 +1,5 @@
 import { addFullscreenControl, addScaleBar, addCoordDisplay, addNorthArrowControl, addGeoJSONToLayer } from "./leafletFunctions.js";
-import { geotiffUrlByRegion, geojsonBuildingUrlByRegion } from "./geotiffUrl.js";
+import { geotiffUrl, geojsonBuildingUrl } from "./geotiffUrl.js";
 import { plotGraph } from "./plotlyFunctions.js";
 
 let initialViewState = [48.10413, 11.6494, 15.2]
@@ -77,8 +77,8 @@ function updateTimeValue(value) {
 function updateGeoTiffGeojsonUrl() {
   let selectedVariableValue = document.getElementById('variableSelector').value;
   let selectedLocationValue = document.getElementById('locationSelector').value;
-  urlToGeoTiffFile = geotiffUrlByRegion[selectedLocationValue][selectedVariableValue];
-  urlToGeojsonFile = geojsonBuildingUrlByRegion[selectedLocationValue];
+  urlToGeoTiffFile = geotiffUrl[selectedLocationValue][selectedVariableValue];
+  urlToGeojsonFile = geojsonBuildingUrl[selectedLocationValue];
 
   if (!urlToGeoTiffFile) {
       console.error('GeoTIFF URL is undefined.');

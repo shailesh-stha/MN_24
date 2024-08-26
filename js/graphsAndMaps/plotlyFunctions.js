@@ -1,4 +1,10 @@
 export function plotGraph(meanValuesList, selectedVariableValue) {
+  const plotTitle = {
+    airTempProjBS: 'Air Temperature over time',
+    tsurfProjBS: 'Surface Temperature ove time',
+    bioPETProjBS: 'PET over time',
+    bioUTCIProjBS: 'UTCI over time',
+  };
   // Define y-axis ranges for each selected variable
   const yaxisRanges = {
     airTempProjBS: [18, 36],
@@ -100,7 +106,7 @@ export function plotGraph(meanValuesList, selectedVariableValue) {
   // Define the layout for the plot
   var layout = {
     title: {
-      text: "Temperature Over Time",
+      text: plotTitle[selectedVariableValue],
       font: { size: 20 },
       xref: "paper",
       x: 0.5,

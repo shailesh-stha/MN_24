@@ -51,7 +51,7 @@ export function addNorthArrowControl(map) {
     onAdd: function (map) {
       const container = L.DomUtil.create("div", "north-arrow-control");
       const img = L.DomUtil.create("img", "", container);
-      img.src = "./data/logo/northArrow.png";
+      img.src = "./data/logo/northArrow_halo_thick.png";
       img.style.width = "50px";
       img.style.height = "50px";
       img.style.pointerEvents = "none";

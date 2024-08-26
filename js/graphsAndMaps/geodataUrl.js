@@ -25,3 +25,15 @@ export const geojsonBuildingUrlByRegion = {
   N03: "./data/buildingN03.geojson",
   N04: "./data/buildingN04.geojson",
 }
+
+export const geojsonBoundaryUrl = {
+  Parent: "./data/geojson/child_i.geojson",
+  N02: "./data/geojson/child_iii.geojson",
+  N03: "./data/geojson/child_ii.geojson",
+  N04: "./data/geojson/child_iv_reduced.geojson",
+}
+
+// N00: Overall: Child I
+// N02: International Montessorischule (top left): Child III
+// N03: Neupesrlach Zentrum: (bottom right) Child II
+// N04: Neuperlach Nord: (top right) Child IV

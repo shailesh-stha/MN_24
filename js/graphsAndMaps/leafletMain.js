@@ -1,9 +1,9 @@
 import { addFullscreenControl, addScaleBar, addCoordDisplay, addNorthArrowControl } from "./leafletFunctions.js";
-import { geotiffUrlByRegion, geojsonBuildingUrlByRegion } from "./geotiffUrl.js";
+import { geotiffUrlByRegion, geojsonBuildingUrlByRegion, geojsonBoundaryUrl } from "./geodataUrl.js";
 import { plotGraph } from "./plotlyFunctions.js";
 
 // Initialize map
-let initialViewState = [48.10413, 11.6494, 15.2];
+let initialViewState = [48.10543, 11.6467, 14.6];
 const map = L.map("map", {
   zoomDelta: 0.2,
   zoomSnap: 0.2,
@@ -22,6 +22,10 @@ maxZoom: 20,
 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 });
 
+const Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+	attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+});
+
 addFullscreenControl(map);
 addNorthArrowControl(map);
 addScaleBar(map);
@@ -29,38 +33,52 @@ addCoordDisplay(map);
 
 var baseLayers = {
   "OpenStreetMap": OpenStreetMap,
-  "OpenStreetMap (DE)": OpenStreetMap_DE
+  "OpenStreetMap (DE)": OpenStreetMap_DE,
+  "ESRI WorldImagery": Esri_WorldImagery,
 };
 var overlayLayers = {
 };
 
 // Create the layer control with the autoZIndex option
-let layerControl = L.control.layers(baseLayers, overlayLayers, {
-  autoZIndex: true // or false
-}).addTo(map);
+let layerControl = L.control.layers(baseLayers, overlayLayers).addTo(map);
 
-// Additonal Layers
-let currentGeotiffLayer, currentBuildingGeojsonLayer;
+// Initializ Variables
+let currentGeotiffLayer, currentLegend, currentBuildingGeojsonLayer, currentBoundaryGeojsonLayer;
+let parentLayer, childLayerN02, childLayerN03, childLayerN04;
+let isLegendVisible = true;
 
 // Initialize elements
 document.addEventListener('DOMContentLoaded', function() {
   updateTimeSliderElement();
+  updateTransparencySliderElement();
   updateGeotiffAndPlot();
-  addGeoJSONToLayer("#ffffff", "#aaaaaa");
+  addGeojsonBuildingLayer("#ffffff", "#aaaaaa");
+  parentLayer = addGeojsonBoundaryLayer(geojsonBoundaryUrl['Parent'], '#ff39b5');
+  childLayerN02 = addGeojsonBoundaryLayer(geojsonBoundaryUrl['N02'], '#ff39b5');
+  childLayerN03 = addGeojsonBoundaryLayer(geojsonBoundaryUrl['N03'], '#ff39b5');
+  childLayerN04 = addGeojsonBoundaryLayer(geojsonBoundaryUrl['N04'], '#ff39b5'); 
 });
 // Update geotiff, geojson and plot
 document.getElementById('locationSelector').addEventListener('change', function () {
   updateGeotiffAndPlot();
-  addGeoJSONToLayer("#ffffff", "#aaaaaa");
+  addGeojsonBuildingLayer("#ffffff", "#aaaaaa");
 });
 document.getElementById('variableSelector').addEventListener('change', updateGeotiffAndPlot);
 document.getElementById('time-slider').addEventListener('input', updateTimeSliderElement);
 document.getElementById("time-slider").addEventListener("change", async function () {
   const georaster = await fetchGeotiff();
   const bandNumber = document.getElementById("time-slider").value;
-  await updateGeotiff(georaster, bandNumber, 0.8);
+  const layerTransparency = (document.getElementById("transparency-slider").value)/100;
+  await updateGeotiff(georaster, bandNumber, layerTransparency);
 });
 
+document.getElementById('transparency-slider').addEventListener('input', updateTransparencySliderElement);
+document.getElementById("transparency-slider").addEventListener("change", async function () {
+  const georaster = await fetchGeotiff();
+  const bandNumber = document.getElementById("time-slider").value;
+  const layerTransparency = (document.getElementById("transparency-slider").value)/100;
+  await updateGeotiff(georaster, bandNumber, layerTransparency);
+});
 
 // Event listener for keydown events
 document.addEventListener('keydown', function(event) {
@@ -68,16 +86,27 @@ document.addEventListener('keydown', function(event) {
     map.setView([initialViewState[0], initialViewState[1]], initialViewState[2]);
   }
   if (event.code === 'Space') {
-    map.fitBounds(currentGeotiffLayer.getBounds());
+    let bounds = currentGeotiffLayer.getBounds();
+    map.fitBounds(bounds);
+  }
+  if (event.key === 'l' || event.key === 'L') {
+    toggleLegendVisibility();
   }
 });
 
 function updateTimeSliderElement() {
   let timeSliderElement = document.getElementById('time-slider');
   let currentTime = timeSliderElement.value;
-  document.querySelector('.slider-value').textContent = `${currentTime.padStart(2, '0')}:00`;
+  document.querySelector('.slider-time-value').textContent = `${currentTime.padStart(2, '0')}:00`;
   let percentage = (currentTime / 24) * 100;
   timeSliderElement.style.background = `linear-gradient(to right, #ff39b5 ${percentage}%, #ffeb3b ${percentage}%)`;
+}
+function updateTransparencySliderElement() {
+  let transparencySliderElement = document.getElementById('transparency-slider');
+  let currentTransparency = transparencySliderElement.value;
+  document.querySelector('.slider-transparency-value').textContent = `${currentTransparency}%`;
+  let percentage = (currentTransparency / 100) * 100;
+  transparencySliderElement.style.background = `linear-gradient(to right, #ff39b5 ${percentage}%, #ffeb3b ${percentage}%)`;
 }
 
 // Update the selected GeoTIFF URL based on the dropdown selection
@@ -92,10 +121,11 @@ async function updateGeotiffAndPlot() {
     plotGraph(meanValuesList, selectedVariableValue);
     console.log('Plot updated');
 
-    updateGeotiff(georaster, bandNumber, 0.8);
+    let layerTransparency =  (document.getElementById('transparency-slider').value)/100;
+    updateGeotiff(georaster, bandNumber, layerTransparency);
     console.log("Geotiff and legend updated");
 
-    // addGeoJSONToLayer("#ffffff", "#aaaaaa");
+    // addGeojsonBuildingLayer("#ffffff", "#aaaaaa");
     // console.log("Building Geosjon updated");
   } catch (error) {
     console.error.apply('Error processing Geotiff:', error);
@@ -169,17 +199,86 @@ function calculateExtremeValues(georaster, bandNumber) {
     const index = Math.floor((percentile * values.length) / 100);
     return values[index];
   };
-  const minNthPercentile = Math.floor(getPercentileValue(10));
-  const maxNthPercentile = Math.ceil(getPercentileValue(85));
+  const minNthPercentile = Math.floor(getPercentileValue(5));
+  const maxNthPercentile = Math.ceil(getPercentileValue(95));
   minValue = minNthPercentile;
   maxValue = maxNthPercentile;
   return [minValue, maxValue];
 }
 
+const legendToggleButton = L.control({ position: 'topright' });
+legendToggleButton.onAdd = function(map) {
+  const button = L.DomUtil.create('button', 'legend-toggle-button');
+  // Use an image instead of text
+  const img = L.DomUtil.create('img');
+  img.src = './data/logo/legend_128_with_shadow.png';
+  // img.alt = 'Legend';
+  img.style.width = '30px';
+  img.style.height = '30px';
+  // Clear any text and append the image to the button
+  button.innerHTML = '';
+  button.appendChild(img);
+  button.style.backgroundColor = 'white';
+  button.style.padding = '7px';
+  button.style.cursor = 'pointer';
+  button.style.border = '2px solid #bbbbbb';
+  button.style.borderRadius = '7px';
+  L.DomEvent.disableClickPropagation(button);
+  button.onclick = function() {
+    toggleLegendVisibility();
+  };
+  return button;
+};
+legendToggleButton.addTo(map);
 
+// Function to toggle the legend's visibility
+function toggleLegendVisibility() {
+  if (isLegendVisible) {
+    map.removeControl(currentLegend);
+  } else {
+    currentLegend.addTo(map);
+  }
+  isLegendVisible = !isLegendVisible;
+}
+
+// Function to load GeoTIFF and display it with the legend
 async function updateGeotiff(georaster, bandNumber, opacity) {
   let [minValue, maxValue] = calculateExtremeValues(georaster, bandNumber);
-  const colors = ["#0000FF","#3333FF","#6666FF","#9999FF","#CCCCFF","#FFFF00","#FFCC00","#FF9900","#FF6600","#FF0000",];
+  const colors = [
+    "#0000FF", "#3333FF", "#6666FF", "#9999FF", "#CCCCFF",
+    "#FFFF00", "#FFCC00", "#FF9900", "#FF6600", "#FF0000"
+  ];
+  const legendGrades = [];
+  const interval = (maxValue - minValue) / colors.length;
+  
+  for (let i = 0; i < colors.length; i++) {
+    const currentMin = minValue + i * interval;
+    legendGrades.push(currentMin);
+  }
+  if (currentLegend) {
+    map.removeControl(currentLegend);
+  }
+  currentLegend = L.control({ position: 'bottomright' });
+  // Creating the legend
+  currentLegend.onAdd = function(map) {
+    var div = L.DomUtil.create('div', 'info legend'),
+      grades = legendGrades;
+      if (grades[0] > 273.15) {
+        for (var i = 0; i < grades.length; i++) {
+          grades[i] -= 273.15;
+      }
+      }
+    for (var i = 0; i < grades.length; i++) {
+      div.innerHTML +=
+        '<i style="background:' + colors[i] + '"></i> ' +
+        grades[i].toFixed(2) + (grades[i + 1] ? '&ndash;' + grades[i + 1].toFixed(2) + ' °C<br>' : '+ °C');
+    }
+    return div;
+  };
+  if (isLegendVisible) {
+    currentLegend.addTo(map);
+  }
+
   const layer = new GeoRasterLayer({
     georaster,
     opacity: opacity,
@@ -200,6 +299,7 @@ async function updateGeotiff(georaster, bandNumber, opacity) {
     },
     resolution: 256,
   });
+  
   if (map.hasLayer(currentGeotiffLayer)) {
     map.removeLayer(currentGeotiffLayer);
   }
@@ -215,13 +315,11 @@ async function updateGeotiff(georaster, bandNumber, opacity) {
   layerControl.addOverlay(currentGeotiffLayer, "Variable Layer");
 }
 
-function addGeoJSONToLayer(fillColor, lineColor) {
+function addGeojsonBuildingLayer(fillColor, lineColor) {
   if (currentBuildingGeojsonLayer) {
     map.removeLayer(currentBuildingGeojsonLayer);
   }
-
   const urlToGeojsonFile = geojsonBuildingUrlByRegion[document.getElementById('locationSelector').value];
-  
   fetch(urlToGeojsonFile)
     .then((response) => response.json())
     .then((data) => {
@@ -239,6 +337,26 @@ function addGeoJSONToLayer(fillColor, lineColor) {
         currentBuildingGeojsonLayer.addTo(map);
       },600);
       console.log("GeoJSON layer added");
+    })
+    .catch((error) => console.error("Error loading the GeoJSON file:", error));
+}
+
+function addGeojsonBoundaryLayer(geojsonPath, color) {
+  fetch(geojsonPath)
+    .then((response) => response.json())
+    .then((data) => {
+      currentBoundaryGeojsonLayer = L.geoJSON(data, {
+        style: function () {
+          return {
+            color: color,
+            weight: 2.5,
+            opacity: 1,
+            // fillColor: none,
+            fillOpacity: 0,
+          };
+        },
+      });
+      currentBoundaryGeojsonLayer.addTo(map);
     })
     .catch((error) => console.error("Error loading the GeoJSON file:", error));
 }

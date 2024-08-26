@@ -53,8 +53,9 @@ select {
 .slider-container {
     width: 100%;
     padding: 5px;
+    margin-top: 10px;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .slider-container label {
@@ -82,7 +83,7 @@ select {
     cursor: pointer;
 }
 
-.slider-value, .slider-transparency-value {
+.slider-time-value, .slider-transparency-value {
     text-align: center;
     font-size: 1em;
     margin: 5px 0;
