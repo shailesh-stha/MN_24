@@ -1,5 +1,5 @@
 // Define URL list object
-export const geotiffUrl = {
+export const geotiffUrlByRegion = {
     N02: {
       airTempProjBS:  "./data/raster/BS_ta_2m_proj_N02.tif",
       tsurfProjBS:    "./data/raster/BS_tsurf_proj_N02.tif",
@@ -20,7 +20,7 @@ export const geotiffUrl = {
     }
   };
 
-export const geojsonBuildingUrl = {
+export const geojsonBuildingUrlByRegion = {
   N02: "./data/buildingN02.geojson",
   N03: "./data/buildingN03.geojson",
   N04: "./data/buildingN04.geojson",
