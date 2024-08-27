@@ -71,7 +71,6 @@ document.getElementById("time-slider").addEventListener("change", async function
   const layerTransparency = (document.getElementById("transparency-slider").value)/100;
   await updateGeotiff(georaster, bandNumber, layerTransparency);
 });
-
 document.getElementById('transparency-slider').addEventListener('input', updateTransparencySliderElement);
 document.getElementById("transparency-slider").addEventListener("change", async function () {
   const georaster = await fetchGeotiff();
