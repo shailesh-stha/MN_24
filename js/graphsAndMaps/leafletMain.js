@@ -1,12 +1,14 @@
-import { addFullscreenControl, addScaleBar, addCoordDisplay, addNorthArrowControl } from "./leafletFunctions.js";
+import { addFullscreenControl, addScaleBar, addCoordDisplay, addNorthArrowControl} from "./leafletFunctions.js";
 import { geotiffUrlByRegion, geojsonBuildingUrlByRegion, geojsonBoundaryUrl } from "./geodataUrl.js";
-import { plotGraph } from "./plotlyFunctions.js";
+import { plotGraph, plotLineGraph } from "./plotlyFunctions.js";
 
 // Initialize map
-let initialViewState = [48.10543, 11.6467, 14.6];
+// let initialViewState = [48.10543, 11.6467, 14.6];
+let initialViewState = [48.103946037, 11.649531021, 14.6];
 const map = L.map("map", {
   zoomDelta: 0.2,
   zoomSnap: 0.2,
+  boxZoom: false,
   wheelPxPerZoomLevel: 150,
   center: [initialViewState[0], initialViewState[1]],
   zoom: initialViewState[2],
@@ -28,9 +30,10 @@ const Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/re
 
 addFullscreenControl(map);
 addNorthArrowControl(map);
-addScaleBar(map);
 addCoordDisplay(map);
+addScaleBar(map);
 
+// Add layers to layerControl
 var baseLayers = {
   "OpenStreetMap": OpenStreetMap,
   "OpenStreetMap (DE)": OpenStreetMap_DE,
@@ -42,10 +45,12 @@ var overlayLayers = {
 // Create the layer control with the autoZIndex option
 let layerControl = L.control.layers(baseLayers, overlayLayers).addTo(map);
 
-// Initializ Variables
+
+// Initializ all the required Variables
 let currentGeotiffLayer, currentLegend, currentBuildingGeojsonLayer, currentBoundaryGeojsonLayer;
 let parentLayer, childLayerN02, childLayerN03, childLayerN04;
 let isLegendVisible = true;
+let marker, popupContent;
 
 // Initialize elements
 document.addEventListener('DOMContentLoaded', function() {
@@ -62,14 +67,47 @@ document.addEventListener('DOMContentLoaded', function() {
 document.getElementById('locationSelector').addEventListener('change', function () {
   updateGeotiffAndPlot();
   addGeojsonBuildingLayer("#ffffff", "#aaaaaa");
+  if (marker) {map.removeLayer(marker)};
 });
-document.getElementById('variableSelector').addEventListener('change', updateGeotiffAndPlot);
+
+////////////////////////// Disable some functions ////////////////////////////////////
+document.getElementById('locationSelector').addEventListener('change', function() {
+  const variableSelector = document.getElementById('variableSelector');
+  if (this.value === 'Parent') {
+      variableSelector.value = 'airTemp';
+      variableSelector.querySelector('option[value="tsurf"]').disabled = true;
+      variableSelector.querySelector('option[value="bioPET"]').disabled = true;
+      variableSelector.querySelector('option[value="bioUTCI"]').disabled = true;
+  } else {
+      // Enable all options if any other location is selected
+      variableSelector.querySelector('option[value="tsurf"]').disabled = false;
+      variableSelector.querySelector('option[value="bioPET"]').disabled = false;
+      variableSelector.querySelector('option[value="bioUTCI"]').disabled = false;
+  }
+});
+document.getElementById('variableSelector').addEventListener('change', function() {
+  const locationSelector = document.getElementById('locationSelector');
+  if (this.value !== 'airTemp') {
+      locationSelector.querySelector('option[value="Parent"]').disabled = true;
+  } else {
+      locationSelector.querySelector('option[value="Parent"]').disabled = false;
+  }
+});
+const scenarioSelector = document.getElementById('scenarioSelector')
+scenarioSelector.querySelector('option[value="str"]').disabled = true
+//////////////////////////////////////////////////////////////////////////////////
+
+document.getElementById('variableSelector').addEventListener('change', function () {
+  updateGeotiffAndPlot();
+  if (marker) {map.removeLayer(marker)};
+});
 document.getElementById('time-slider').addEventListener('input', updateTimeSliderElement);
 document.getElementById("time-slider").addEventListener("change", async function () {
   const georaster = await fetchGeotiff();
   const bandNumber = document.getElementById("time-slider").value;
   const layerTransparency = (document.getElementById("transparency-slider").value)/100;
   await updateGeotiff(georaster, bandNumber, layerTransparency);
+  if (marker) {map.removeLayer(marker)};
 });
 document.getElementById('transparency-slider').addEventListener('input', updateTransparencySliderElement);
 document.getElementById("transparency-slider").addEventListener("change", async function () {
@@ -77,6 +115,7 @@ document.getElementById("transparency-slider").addEventListener("change", async 
   const bandNumber = document.getElementById("time-slider").value;
   const layerTransparency = (document.getElementById("transparency-slider").value)/100;
   await updateGeotiff(georaster, bandNumber, layerTransparency);
+  if (marker) {map.removeLayer(marker)};
 });
 
 // Event listener for keydown events
@@ -88,7 +127,7 @@ document.addEventListener('keydown', function(event) {
     let bounds = currentGeotiffLayer.getBounds();
     map.fitBounds(bounds);
   }
-  if (event.key === 'l' || event.key === 'L') {
+  if (event.key === 'l' || event.key === 'L' || event.key === 't' || event.key === 'T' ) {
     toggleLegendVisibility();
   }
 });
@@ -118,14 +157,10 @@ async function updateGeotiffAndPlot() {
     let meanValuesList = calculateMeanValues(georaster);
     
     plotGraph(meanValuesList, selectedVariableValue);
-    console.log('Plot updated');
 
     let layerTransparency =  (document.getElementById('transparency-slider').value)/100;
     updateGeotiff(georaster, bandNumber, layerTransparency);
-    console.log("Geotiff and legend updated");
 
-    // addGeojsonBuildingLayer("#ffffff", "#aaaaaa");
-    // console.log("Building Geosjon updated");
   } catch (error) {
     console.error.apply('Error processing Geotiff:', error);
   }
@@ -136,6 +171,7 @@ async function fetchGeotiff() {
   let selectedVariableValue = document.getElementById('variableSelector').value;
   let selectedLocationValue = document.getElementById('locationSelector').value;
   let urlToGeotiffFile = geotiffUrlByRegion[selectedLocationValue][selectedVariableValue];
+  // console.log(urlToGeotiffFile);
   try {
       const response = await fetch(urlToGeotiffFile);
       if (!response.ok) {
@@ -198,8 +234,8 @@ function calculateExtremeValues(georaster, bandNumber) {
     const index = Math.floor((percentile * values.length) / 100);
     return values[index];
   };
-  const minNthPercentile = Math.floor(getPercentileValue(5));
-  const maxNthPercentile = Math.ceil(getPercentileValue(95));
+  const minNthPercentile = Math.floor(getPercentileValue(10));
+  const maxNthPercentile = Math.ceil(getPercentileValue(90));
   minValue = minNthPercentile;
   maxValue = maxNthPercentile;
   return [minValue, maxValue];
@@ -262,10 +298,11 @@ async function updateGeotiff(georaster, bandNumber, opacity) {
   currentLegend.onAdd = function(map) {
     var div = L.DomUtil.create('div', 'info legend'),
       grades = legendGrades;
+      div.innerHTML += '<h6>LEGEND</h6>';
       if (grades[0] > 273.15) {
         for (var i = 0; i < grades.length; i++) {
           grades[i] -= 273.15;
-      }
+        }
       }
     for (var i = 0; i < grades.length; i++) {
       div.innerHTML +=
@@ -335,7 +372,7 @@ function addGeojsonBuildingLayer(fillColor, lineColor) {
       setTimeout(() => {
         currentBuildingGeojsonLayer.addTo(map);
       },600);
-      console.log("GeoJSON layer added");
+      // console.log("GeoJSON layer added");
     })
     .catch((error) => console.error("Error loading the GeoJSON file:", error));
 }
@@ -359,3 +396,59 @@ function addGeojsonBoundaryLayer(geojsonPath, color) {
     })
     .catch((error) => console.error("Error loading the GeoJSON file:", error));
 }
+
+// Additional functionalities on map
+map.on("click", async function (event) {
+  const lat = event.latlng.lat;
+  const lng = event.latlng.lng;
+
+  const georaster = await fetchGeotiff();
+  const bandIndex = document.getElementById("time-slider").value;
+
+  try {
+    let valuesList;
+    let valuesList1, valuesList2;
+
+    valuesList1 = geoblaze.identify(georaster, [lng, lat]);
+    try {
+      const [x, y] = proj4('EPSG:4326', 'EPSG:3857', [lng, lat]);
+      valuesList2 = geoblaze.identify(georaster, [x, y]);
+
+      if (valuesList2) {
+        valuesList = valuesList2;
+      } else {
+        valuesList = valuesList1;
+      }
+    } catch (error) {};
+
+    const currentValue = valuesList[bandIndex];
+
+    marker = L.marker([lat, lng]).addTo(map);
+    popupContent = `Lat: ${lat.toFixed(4)}, Lon: ${lng.toFixed(4)}<br>Value: ${currentValue.toFixed(2)}°C`;
+    marker.bindPopup(popupContent).openPopup();
+
+    console.log(valuesList);
+
+    // Plot graph from hourly data
+    const container = document.getElementById('plotContainer');
+    container.style.display = 'block';
+
+    const range = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24];
+    plotLineGraph("plotContainer", range, valuesList);
+
+    marker.on("popupclose", function () {
+      map.removeLayer(marker);
+      const container = document.getElementById('plotContainer');
+      container.style.display = 'none';
+    });
+  } catch (error) {};
+});
+
+
+
+// Prevent right click
+map.on('contextmenu', function(event) {
+  event.originalEvent.preventDefault();
+});
+map.doubleClickZoom.disable(); 
+

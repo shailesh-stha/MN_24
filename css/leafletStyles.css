@@ -1,6 +1,6 @@
 #map {
     height: 60vh;
-    width: 105%;
+    width: 100%;
     background-color: aliceblue;
 }
 
@@ -13,28 +13,40 @@
     line-height: 18px;
     background-color: rgba(255, 255, 255,0.8);
     padding: 7.5px;
-    border-radius: 5px;
+    border-radius: 10px;
 }
 .legend i {
     width: 25px;
-    height: 14px;
+    height: 13px;
     float: left;
     margin-right: 8px;
     opacity: 0.7;
 }
 
-.coord-info {
+h6 {
+    text-align: center;
+    margin: 0px 0px 5px 0px;
+    padding: 0;
+}
+
+.coordinate-info {
     background-color: rgba(255, 255, 255, 0.8);
-    padding: 5px;
-    font-size: 12px;
+    padding: 2px 5px;
+    font-size: 13px;
     color: #000000;
 }
 
-
 #plotlyLineGraph {
-    height: 60vh;
     width: 100%;
-    background-color: aliceblue;
+    height: 450px;
+    /* border: 1px solid black; */
+}
+
+#plotContainer {
+    width: 100%;
+    height: 230px;
+    margin-top: 5px;
+    /* background-color: aliceblue; */
 }
 
 .dropdown-container {
@@ -88,5 +100,8 @@ select {
     font-size: 1em;
     margin: 5px 0;
     font-weight: bold;
-    /* color: rgb(255, 62, 181); */
+}
+
+.leaflet-popup-content {
+    text-align: center;
 }

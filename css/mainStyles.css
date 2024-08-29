@@ -66,6 +66,10 @@ nav a {
     /* transition: background-color 0.3s, color 0.3s, border 0.3s, margin 0.3s; */
 }
 
+nav a:last-child {
+    margin-left: auto;
+}
+
 nav a:hover {
     color: rgb(255, 62, 181);
     background-color: rgb(245, 245, 245);

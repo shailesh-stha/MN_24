@@ -1,7 +1,5 @@
 // 3d Models to Cesium
 const glbUrl = {
-  structureNeb: "./data/3d_model/structureNeb.glb",
-  structureNeb2: "./data/3d_model/structureNeb2.glb",
   structureNeb3: "./data/3d_model/structureNeb3.glb"
 };
 
@@ -107,8 +105,6 @@ function toggleGeoJsonEntities(geojsonEntity, shouldShow) {
 const longitudeOffset = 8.9831528412e-6;
 
 export function initializeEntities(viewer) {
-  const buildingEntity1 = addGlb(viewer, 'buildWithoutGround1', 9.211329, 48.489961, 5.5, 130, 0, 0);
-  const buildingEntity2 = addGlb(viewer, 'buildWithoutGround2', 9.211329, 48.489961, 5.5, 130, 0, 0);
   const structureNebEntity = [];
 
   for (let i = 0; i < 8; i++) {
@@ -124,9 +120,6 @@ export function initializeEntities(viewer) {
 
   const neuperlachBound = loadGeoJsonData(viewer, 'neuperlachBoundary', true);
   const neuperlachBoundReduced = loadGeoJsonData(viewer, 'neuperlachBoundaryReduced', false);
-
-  buildingEntity1.show = false;
-  buildingEntity2.show = false;
 
   structureNebEntity.forEach(entity => {
     entity.show = false;

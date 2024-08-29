@@ -44,12 +44,8 @@ async function getBoundingBoxFromGeoJSON(url) {
   return [minLon, minLat, maxLon, maxLat];
 }
 
-const boundingBox = await getBoundingBoxFromGeoJSON('./data/geojson/n03.geojson');
+const boundingBox = await getBoundingBoxFromGeoJSON('./data/geojson/child_ii.geojson');
 console.log(boundingBox);
-
-// Define the rectangle's boundaries
-const rectangle = Cesium.Rectangle.fromDegrees(boundingBox[0], boundingBox[1], boundingBox[2], boundingBox[3]);
-// const rectangle = Cesium.Rectangle.fromDegrees(11.6415765593571479, 48.1038158007820087, 11.6486833081481915, 48.1085756077523996);
 
 const polygonHierarchy = new Cesium.PolygonHierarchy(
   Cesium.Cartesian3.fromDegreesArray([
@@ -60,7 +56,6 @@ const polygonHierarchy = new Cesium.PolygonHierarchy(
   ])
 );
 
-// Set the desired height in meters (altitude above the 3D tiles)
 const height = 600; // Adjust this value based on how high above the 3D tile you want the image
 
 // Create a polygon entity and store it in a variable
@@ -69,7 +64,7 @@ const polygonEntity = viewer.entities.add({
       hierarchy: polygonHierarchy,  // Correctly use the hierarchy property
       // height: height, 
       material: new Cesium.ImageMaterialProperty({
-          image: "./data/images/temp150_re_all.png",
+          image: "./data/cesiumOverlay/temp150_re_all.png",
           transparent: true,
           color: new Cesium.Color(1.0, 1.0, 1.0, 0.3)
       }),

@@ -1,24 +1,24 @@
 const plotTitle = {
-  airTempProjBS: 'Air Temperature over time',
-  tsurfProjBS: 'Surface Temperature ove time',
-  bioPETProjBS: 'PET over time',
-  bioUTCIProjBS: 'UTCI over time',
+  airTemp: 'Air Temperature over time',
+  tsurf: 'Surface Temperature ove time',
+  bioPET: 'PET over time',
+  bioUTCI: 'UTCI over time',
 };
 const legendTitle = {
-  airTempProjBS: 'Air Temperature',
-  tsurfProjBS: 'Surface Temperature',
-  bioPETProjBS: 'PET',
-  bioUTCIProjBS: 'UTCI',
+  airTemp: 'Air Temperature',
+  tsurf: 'Surface Temperature',
+  bioPET: 'PET',
+  bioUTCI: 'UTCI',
 };
 const yaxisRanges = {
-  airTempProjBS: [18, 36],
-  tsurfProjBS: [290, 318],
-  bioPETProjBS: [16, 40],
-  bioUTCIProjBS: [18, 36],
+  airTemp: [18, 36],
+  tsurf: [16, 44],
+  bioPET: [16, 40],
+  bioUTCI: [18, 36],
 };
 
 const shapeDatas = {
-  airTempProjBS: [
+  airTemp: [
     { y0: 18, y1: 20.0, fillcolor: "rgba(0, 0, 255, 0.5)" },
     { y0: 20, y1: 22.0, fillcolor: "rgba(0, 100, 255, 0.5)" },
     { y0: 22, y1: 24, fillcolor: "rgba(0, 150, 255, 0.5)" },
@@ -30,19 +30,19 @@ const shapeDatas = {
     { y0: 34, y1: 36, fillcolor: "rgba(255, 165, 0, 0.5)" },
     { y0: 36, y1: 38, fillcolor: "rgba(255, 69, 0, 0.5)" },
   ],
-  tsurfProjBS: [
-    { y0: 288, y1: 291.4, fillcolor: "rgba(0, 0, 255, 0.5)" },
-    { y0: 291.4, y1: 294.8, fillcolor: "rgba(0, 100, 255, 0.5)" },
-    { y0: 294.8, y1: 298.2, fillcolor: "rgba(0, 150, 255, 0.5)" },
-    { y0: 298.2, y1: 301.6, fillcolor: "rgba(0, 200, 255, 0.5)" },
-    { y0: 301.6, y1: 305, fillcolor: "rgba(0, 255, 200, 0.5)" },
-    { y0: 305, y1: 308.4, fillcolor: "rgba(0, 255, 150, 0.5)" },
-    { y0: 308.4, y1: 311.8, fillcolor: "rgba(100, 255, 100, 0.5)" }, 
-    { y0: 311.8, y1: 315.2, fillcolor: "rgba(200, 255, 50, 0.5)" },
-    { y0: 315.2, y1: 318.6, fillcolor: "rgba(255, 200, 0, 0.5)" },
-    { y0: 318.6, y1: 322, fillcolor: "rgba(255, 100, 0, 0.5)" },
+  tsurf: [
+    { y0: 14, y1: 17.4, fillcolor: "rgba(0, 0, 255, 0.5)" },
+    { y0: 17.4, y1: 20.8, fillcolor: "rgba(0, 100, 255, 0.5)" },
+    { y0: 20.8, y1: 24.2, fillcolor: "rgba(0, 150, 255, 0.5)" },
+    { y0: 24.2, y1: 27.6, fillcolor: "rgba(0, 200, 255, 0.5)" },
+    { y0: 27.6, y1: 31, fillcolor: "rgba(0, 255, 200, 0.5)" },
+    { y0: 31, y1: 34.4, fillcolor: "rgba(0, 255, 150, 0.5)" },
+    { y0: 34.4, y1: 37.8, fillcolor: "rgba(100, 255, 100, 0.5)" },
+    { y0: 37.8, y1: 41.2, fillcolor: "rgba(200, 255, 50, 0.5)" },
+    { y0: 41.2, y1: 44.6, fillcolor: "rgba(255, 200, 0, 0.5)" },
+    { y0: 44.6, y1: 48, fillcolor: "rgba(255, 100, 0, 0.5)" },
   ],
-  bioPETProjBS: [
+  bioPET: [
     // { y0: -100, y1: 4, fillcolor: "rgba(0, 0, 255, 0.5)" }, // Extreme Cold Stress
     // { y0: 4, y1: 8, fillcolor: "rgba(0, 255, 255, 0.5)" }, // Strong Cold Stress
     // { y0: 8, y1: 13, fillcolor: "rgba(173, 216, 230, 0.5)" }, // Moderate Cold Stress
@@ -53,7 +53,7 @@ const shapeDatas = {
     { y0: 35, y1: 41, fillcolor: "rgba(255, 0, 0, 0.5)" }, // Strong Heat Stress
     { y0: 41, y1: 60, fillcolor: "rgba(128, 0, 0, 0.5)" }, // Extreme Heat Stress
   ],
-  bioUTCIProjBS: [
+  bioUTCI: [
     // { y0: -100, y1: -40, fillcolor: "rgba(75, 0, 130, 0.5)" }, // Extreme Cold Stress
     // { y0: -40, y1: -27, fillcolor: "rgba(0, 0, 139, 0.5)" }, // Very Strong Cold Stress
     // { y0: -27, y1: -13, fillcolor: "rgba(0, 0, 255, 0.5)" }, // Strong Cold Stress
@@ -102,12 +102,12 @@ export function plotGraph(meanValuesList, selectedVariableValue) {
       x: [null],
       y: [null],
       mode: "markers",
-      marker: { color: shape.fillcolor, size: 14, symbol: "square" },
-      name: `${shape.y0.toFixed(2)} - ${shape.y1.toFixed(2)}`,
+      marker: { color: shape.fillcolor, size: 13, symbol: "square" },
+      name: `${shape.y0.toFixed(2)} - ${shape.y1.toFixed(2)} °C`,
       showlegend: true,
     }));
 
-  console.log(shapeDataLegend);
+  // console.log(shapeDataLegend);
 
   // Define the layout for the plot
   var layout = {
@@ -141,15 +141,17 @@ export function plotGraph(meanValuesList, selectedVariableValue) {
       mirror: true,
       tickfont: { size: 16 },
     },
-    margin: { l: 80, r: 20, b: 60, t: 50, pad: 10 },
+    margin: { l: 60, r: 30, b: 50, t: 40, pad: 5 },
     shapes: backgroundShapes,
     legend: {
-      x: 0.01,
-      y: 0.99,
+      x: 0.00,
+      y: 1.00,
       xanchor: "left",
       yanchor: "top",
-      bgcolor: "rgba(255,255,255,0.9)",
-    }
+      bgcolor: "rgba(255,255,255,0.75)",
+    },
+    paper_bgcolor: "rgba(0,0,150,0.01)",
+    autosize: true,
   };
   // Plot the graph
   Plotly.newPlot("plotlyLineGraph", [trace1, ...shapeDataLegend], layout);
@@ -173,4 +175,47 @@ export function plotGraph(meanValuesList, selectedVariableValue) {
     }
   }
   setTimeout(addPoint, 100);
+}
+
+export function plotLineGraph(containerId, x, y) {
+  var trace = {
+      x: x,
+      y: y,
+      type: 'scatter',
+      mode: 'lines+markers',
+      marker: { color: 'blue' }
+  };
+
+  // Data and layout for the plot
+  var data = [trace];
+  var layout = {
+    title: 'Values over time (at Marker Location)',
+    xaxis: {
+      title: { text: "Time (Hour)", font: { size: 16 } },
+      range: [-1, 25],
+      dtick: 2,
+      showgrid: true,
+      gridcolor: "rgba(120, 120, 120, 0.5)",
+      zeroline: false,
+      linecolor: "black",
+      mirror: true,
+      tickfont: { size: 16 },
+      tickvals: [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24],
+      ticktext: ["00", "02", "04", "06", "08", "10", "12", "14", "16", "18", "20", "22", "24"],
+    },
+    yaxis: {
+      title: { text: "Temperature (°C)", font: { size: 16 } },
+      dtick: 2,
+      showgrid: true,
+      gridcolor: "rgba(120, 120, 120, 0.5)",
+      zeroline: false,
+      linecolor: "black",
+      mirror: true,
+      tickfont: { size: 16 },
+    },
+    margin: { l: 60, r: 30, b: 50, t: 40, pad: 5 },
+    paper_bgcolor: "rgba(0,0,150,0.01)",
+    autosize: true,
+  };
+  Plotly.newPlot(containerId, data, layout);
 }

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    
+
     <!-- Custom CSS -->
     <link rel="stylesheet" href="./css/mainStyles.css">
     <link rel="stylesheet" href="./css/storyStyles.css">
@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet.fullscreen/Control.FullScreen.css" />
 
     <title>Neuperlach, Munich</title>
+    <link rel="icon" type="image/x-icon" href="./data/logo/str-fav-icon.png">
 </head>
 
 <body>
@@ -26,12 +27,13 @@
         <div class="row">
             <div class="col-8">
                 <a href="https://www.str-ucture.com/" target="_blank">
-                    <img class="webHeaderLogo" src="./data/images/240209_str-ucture_logo_rgb-02.jpg" alt="str.ucture GmbH">
+                    <img class="webHeaderLogo" src="./data/logo/240209_str-ucture_logo_rgb-02.png"
+                        alt="str.ucture GmbH">
                 </a>
             </div>
             <div class="col-4">
                 <a href="https://www.nebourhoods.de/en" target="_blank">
-                    <img  class="webHeaderLogo" src="./data/images/NEB_logo_cropped.png" alt="Creating NEBourhoods">
+                    <img class="webHeaderLogo" src="./data/logo/NEB_logo_cropped.png" alt="Creating NEBourhoods">
                 </a>
             </div>
         </div>
@@ -40,13 +42,15 @@
     <nav id="navbar">
         <a class="pages" href="index.html">Home</a>
         <a class="pages" href="graphs.html">Graphs and Diagrams</a>
+        <a class="pages" href="deckgl.html">DeckGL</a>
+        <a class="pages" href="about.html">About Us</a>
     </nav>
 
     <div class="mainBodyContainer">
         <div class="row">
             <div class="col-md-2 bg-white collapse show" id="parameterSelection" style="position: relative;">
                 <h2 class="customH1">PARAMETER SELECTION</h2>
-    
+
                 <div class="dropdown-container">
                     <label>Location</label>
                     <select id="locationSelector">
@@ -56,24 +60,24 @@
                         <option value="N04">Neuperlach Nord</option>
                         <!-- N03 -->
                         <option value="N03">Neuperlach Zentrum</option>
+                        <!-- Parent -->
+                        <option value="Parent">Overall</option>
                     </select>
                 </div>
-
+                <div class="dropdown-container">
+                    <label>Scenario</label>
+                    <select id="scenarioSelector">
+                        <option value="bs" selected>Baseline</option>
+                        <option value="str">The STRUCTURE</option>
+                    </select>
+                </div>
                 <div class="dropdown-container">
                     <label>Variable</label>
                     <select id="variableSelector">
-                        <option value="airTempProjBS" selected>Air Temperature</option>
-                        <option value="tsurfProjBS">Surface Temperature</option>
-                        <option value="bioPETProjBS">PET</option>
-                        <option value="bioUTCIProjBS">UTCI</option>
-                    </select>
-                </div>
-    
-                <div class="dropdown-container" id="simulationScenarioSelection">
-                    <label>Simulation Scenario</label>
-                    <select id="scenarioSelector">
-                        <option value="baseline" selected>Baseline</option>
-                        <option value="theStructure">The STRUCTURE</option>
+                        <option value="airTemp" selected>Air Temperature</option>
+                        <option value="tsurf">Surface Temperature</option>
+                        <option value="bioPET">PET</option>
+                        <option value="bioUTCI">UTCI</option>
                     </select>
                 </div>
 
@@ -85,7 +89,7 @@
 
                 <div class="slider-container">
                     <label for="transparency-slider">Transparency (%):</label>
-                    <input type="range" id="transparency-slider" min="0" max="100" step="5" value="60">
+                    <input type="range" id="transparency-slider" min="0" max="100" step="5" value="75">
                     <div class="slider-transparency-value">60</div>
                 </div>
 
@@ -95,23 +99,31 @@
                 <!-- <h2 class="customH1">&nbsp</h2> -->
                 <div id="map"></div>
                 <p style="font-weight: bold; margin:0">Note:</p>
-                <p style="margin:0; font-size:0.9em;">Press <strong>'R'</strong> to reset view</p>
-                <p style="margin:0; font-size:0.9em">Press <strong>'Space bar'</strong> to zoom to the selected location</p>
-                <p style="margin:0; font-size:0.9em;">Press <strong>'L'</strong> toggle legend visibility</p>
+                <p style="margin:0; font-size:0.9em;">Press <strong>'R'</strong> to reset to overview.</p>
+                <p style="margin:0; font-size:0.9em">Press <strong>'Space bar'</strong> to zoom to the selected location
+                </p>
+                <p style="margin:0; font-size:0.9em;">Press <strong>'L'</strong> or <strong>'T'</strong> toggle
+                    <strong>Legend</strong> visibility</p>
+                <p style="margin:0; font-size:0.9em;"><strong>'Left-Click'</strong> on the active <strong>Variable Layer</strong> to add marker.
+                </p>
             </div>
-            
+
             <div class="col-md-5 bg-white">
                 <!-- <h2 class="customH1">&nbsp</h2> -->
                 <div id="plotlyLineGraph"></div>
+                <div id="plotContainer"></div>
             </div>
         </div>
+    </div>
+
+
     </div>
 
     <footer class="webFooterContainer">
         <p>
             Powered by:
             <a href="https://www.str-ucture.com/" target="_blank">
-                <img src="./data/images/240209_str-ucture_logo_rgb-02.jpg" alt="str.ucture GmbH"
+                <img src="./data/logo/240209_str-ucture_logo_rgb-02.png" alt="str.ucture GmbH"
                     style="height: 1.75vh; vertical-align: middle;">
             </a>and
             <a href="https://cesium.com/" target="_blank">
@@ -128,14 +140,14 @@
     <script src="https://unpkg.com/leaflet.fullscreen/Control.FullScreen.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.6.2/proj4.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4leaflet/1.0.1/proj4leaflet.js"></script>
-    
+    <script src="https://unpkg.com/geoblaze"></script>
 
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 
     <!-- Custom JS Script -->
     <script src="./js/general/generalScripts.js"></script>
     <script src="./js/graphsAndMaps/leafletMain.js" type="module"></script>
-    <script src="./js/graphsAndMaps/generalScripts.js" type="module"></script>
+    <script src="./js/graphsAndMaps/plotlyFunctions.js" type="module"></script>
 
     <!-- jQuery, Popper.js, and Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

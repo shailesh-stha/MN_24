@@ -27,7 +27,7 @@ export function addScaleBar(map) {
 export function addCoordDisplay(map) {
   const coordDiv = L.control({ position: "bottomleft" });
   coordDiv.onAdd = function (map) {
-    this._div = L.DomUtil.create("div", "coord-info");
+    this._div = L.DomUtil.create("div", "coordinate-info");
     this.update();
     return this._div;
   };

@@ -40,7 +40,7 @@ scene.add(hemiLight)
 
 // Load the grass texture
 const textureLoader = new THREE.TextureLoader();
-const grassTexture = textureLoader.load('./data/images/grass_texture2.jpg');
+const grassTexture = textureLoader.load('./data/texture/grass_texture2.jpg');
 grassTexture.wrapS = THREE.RepeatWrapping;
 grassTexture.wrapT = THREE.RepeatWrapping;
 grassTexture.repeat.set(80, 80);
@@ -68,16 +68,14 @@ loader.load('./data/3d_model/structureNeb3.glb', result => {
 
 // OrbitControls for interaction
 const controls = new THREE.OrbitControls(camera, renderer.domElement);
-// Set the maximum and minimum polar angles
-controls.maxPolarAngle = Math.PI / 2 - 0.05; // Prevent orbiting below the ground
-controls.minPolarAngle = 0; // Prevent orbiting too far upwards
-controls.enableDamping = true; // Smoother controls
+controls.maxPolarAngle = Math.PI / 2 - 0.05;
+controls.minPolarAngle = 0;
+controls.enableDamping = true;
 controls.dampingFactor = 0.05;
-controls.minDistance = 5; // Minimum zoom distance
-controls.maxDistance = 100; // Maximum zoom distance
+controls.minDistance = 5;
+controls.maxDistance = 100;
 controls.update();
 
-// Render loop (to handle controls)
 function animate() {
     requestAnimationFrame(animate);
     controls.update();
