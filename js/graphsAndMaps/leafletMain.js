@@ -94,8 +94,14 @@ document.getElementById('variableSelector').addEventListener('change', function(
   }
 });
 const scenarioSelector = document.getElementById('scenarioSelector')
-scenarioSelector.querySelector('option[value="str"]').disabled = true
+scenarioSelector.querySelector('option[value="S1"]').disabled = true;
+const variableSelector = document.getElementById('variableSelector')
+variableSelector.querySelector('option[value="tIndoor"]').disabled = true;
 //////////////////////////////////////////////////////////////////////////////////
+document.getElementById('scenarioSelector').addEventListener('change', function () {
+  updateGeotiffAndPlot();
+  if (marker) {map.removeLayer(marker)};
+});
 
 document.getElementById('variableSelector').addEventListener('change', function () {
   updateGeotiffAndPlot();
@@ -170,8 +176,15 @@ async function fetchGeotiff() {
   // Update Geodata urls and band number
   let selectedVariableValue = document.getElementById('variableSelector').value;
   let selectedLocationValue = document.getElementById('locationSelector').value;
-  let urlToGeotiffFile = geotiffUrlByRegion[selectedLocationValue][selectedVariableValue];
-  // console.log(urlToGeotiffFile);
+  let selectedScenarioValue = document.getElementById('scenarioSelector').value;
+
+  let locationAndScenario = `${selectedLocationValue}${selectedScenarioValue}`;
+
+  let urlToGeotiffFile = geotiffUrlByRegion[locationAndScenario][selectedVariableValue];
+  
+  console.log(locationAndScenario);
+  console.log(selectedVariableValue);
+  console.log(urlToGeotiffFile);
   try {
       const response = await fetch(urlToGeotiffFile);
       if (!response.ok) {
@@ -421,6 +434,7 @@ map.on("click", async function (event) {
       }
     } catch (error) {};
 
+    let selectedVariableValue = document.getElementById('variableSelector').value;
     const currentValue = valuesList[bandIndex];
 
     marker = L.marker([lat, lng]).addTo(map);
@@ -434,7 +448,7 @@ map.on("click", async function (event) {
     container.style.display = 'block';
 
     const range = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24];
-    plotLineGraph("plotContainer", range, valuesList);
+    plotLineGraph("plotContainer", range, valuesList, selectedVariableValue);
 
     marker.on("popupclose", function () {
       map.removeLayer(marker);

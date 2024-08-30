@@ -1,21 +1,26 @@
 // Define URL list object
 export const geotiffUrlByRegion = {
-  Parent: {
+  ParentBS: {
     airTemp: "./data/raster/Parent_BS_ta_2m_proj.tif",
   },
-  N02: {
+  N02BS: {
     airTemp: "./data/raster/N02_BS_ta_2m_proj.tif",
     tsurf: "./data/raster/N02_BS_tsurf_proj_degC.tif",
     bioPET: "./data/raster/N02_BS_bio_pet_proj.tif",
     bioUTCI: "./data/raster/N02_BS_bio_utci_proj.tif",
   },
-  N03: {
+  N02S1: {
+    airTemp: "./data/raster/N02_S1_ta_2m_proj.tif",
+    tsurf: "./data/raster/N02_S1_tsurf_proj_degC.tif",
+    tIndoor: "./data/raster/N02_S1_t_indoor_proj.tif",
+  },
+  N03BS: {
     airTemp: "./data/raster/N03_BS_ta_2m_proj.tif",
     tsurf: "./data/raster/N03_BS_tsurf_proj_degC.tif",
     bioPET: "./data/raster/N03_BS_bio_pet_proj.tif",
     bioUTCI: "./data/raster/N03_BS_bio_utci_proj.tif",
   },
-  N04: {
+  N04BS: {
     airTemp: "./data/raster/N04_BS_ta_2m_proj.tif",
     tsurf: "./data/raster/N04_BS_tsurf_proj_degC.tif",
     bioPET: "./data/raster/N04_BS_bio_pet_proj.tif",

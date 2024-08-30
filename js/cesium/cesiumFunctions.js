@@ -40,28 +40,20 @@ const addGlb = (viewer, glbName, longitude, latitude, height, heading, pitch, ro
 
 // Function to add a GeoJSON file into Cesium
 export function addGeoJsonDataSource(viewer, geojsonName, extrudedHeight, polygonColor, showEntities) {
-  // Load the GeoJSON data source
   return Cesium.GeoJsonDataSource.load(geojsonUrl[geojsonName]).then(function(dataSource) {
-    // Add the data source to the viewer
     viewer.dataSources.add(dataSource);
 
-    // Access the entities in the data source
     const entities = dataSource.entities.values;
     entities.forEach(entity => {
       const polygon = entity.polygon;
       if (polygon) {
-        // Set the height reference and extruded height
         polygon.heightReference = Cesium.HeightReference.RELATIVE_TO_GROUND;
         polygon.extrudedHeight = extrudedHeight;
         polygon.extrudedHeightReference = Cesium.HeightReference.RELATIVE_TO_GROUND;
-
-        // Set the polygon material color with transparency
         polygon.material = Cesium.Color.fromCssColorString(polygonColor).withAlpha(0.2);
       }
-      // Show or hide entities based on the passed parameter
       entity.show = showEntities;
     });
-    // Return the added GeoJSON entities
     return entities;
   })
 }

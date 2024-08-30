@@ -3,18 +3,21 @@ const plotTitle = {
   tsurf: 'Surface Temperature ove time',
   bioPET: 'PET over time',
   bioUTCI: 'UTCI over time',
+  tIndoor: 'Indoor Temperature over time',
 };
 const legendTitle = {
   airTemp: 'Air Temperature',
   tsurf: 'Surface Temperature',
   bioPET: 'PET',
   bioUTCI: 'UTCI',
+  tIndoor: 'Indoor Temperature'
 };
 const yaxisRanges = {
   airTemp: [18, 36],
   tsurf: [16, 44],
   bioPET: [16, 40],
   bioUTCI: [18, 36],
+  tIndoor: [20,24],
 };
 
 const shapeDatas = {
@@ -64,7 +67,16 @@ const shapeDatas = {
     { y0: 32, y1: 38, fillcolor: "rgba(255, 165, 0, 0.5)" }, // Strong Heat Stress
     { y0: 38, y1: 46, fillcolor: "rgba(255, 0, 0, 0.5)" }, // Very Strong Heat Stress
     { y0: 46, y1: 60, fillcolor: "rgba(128, 0, 0, 0.5)" }, // Extreme Heat Stress
-  ]
+  ],
+  tIndoor: [
+    { y0: 20.0, y1: 20.5, fillcolor: "rgba(0, 100, 255, 0.5)" },
+    { y0: 20.5, y1: 21.0, fillcolor: "rgba(0, 200, 255, 0.5)" },
+    { y0: 21.0, y1: 21.5, fillcolor: "rgba(100, 255, 150, 0.5)" },
+    { y0: 21.5, y1: 22.0, fillcolor: "rgba(200, 255, 100, 0.5)" },
+    { y0: 22.0, y1: 22.5, fillcolor: "rgba(255, 255, 0, 0.5)" },
+    { y0: 22.5, y1: 23.0, fillcolor: "rgba(255, 165, 0, 0.5)" },
+    { y0: 23.0, y1: 24.0, fillcolor: "rgba(255, 69, 0, 0.5)" },
+  ],
 };
 
 export function plotGraph(meanValuesList, selectedVariableValue) {
@@ -177,19 +189,28 @@ export function plotGraph(meanValuesList, selectedVariableValue) {
   setTimeout(addPoint, 100);
 }
 
-export function plotLineGraph(containerId, x, y) {
+export function plotLineGraph(containerId, x, y, selectedVariableValue) {
+  let shapeData = shapeDatas[selectedVariableValue];
+  let yaxis_range = yaxisRanges[selectedVariableValue];
+
   var trace = {
       x: x,
       y: y,
       type: 'scatter',
       mode: 'lines+markers',
-      marker: { color: 'blue' }
+      line: { color: "rgb(251,62,181)", width: 3, dash: "solid" },
+      marker: { color: "rgb(251,62,181)", size: 10, symbol: "circle", line: { color: "white", width: 2 } },
   };
 
   // Data and layout for the plot
   var data = [trace];
   var layout = {
-    title: 'Values over time (at Marker Location)',
+    title: {
+      text: (plotTitle[selectedVariableValue] + ' at Marker Location'),
+      font: { size: 18 },
+      xref: "paper",
+      x: 0.5,
+    },
     xaxis: {
       title: { text: "Time (Hour)", font: { size: 16 } },
       range: [-1, 25],
@@ -205,6 +226,7 @@ export function plotLineGraph(containerId, x, y) {
     },
     yaxis: {
       title: { text: "Temperature (°C)", font: { size: 16 } },
+      range: yaxis_range,
       dtick: 2,
       showgrid: true,
       gridcolor: "rgba(120, 120, 120, 0.5)",

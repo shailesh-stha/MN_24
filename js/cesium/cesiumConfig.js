@@ -1,4 +1,4 @@
-const myAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI5MjU4YjRjZi0zNDYzLTQ5ZTUtOWYxZC01Yjk4MGU3NDg3YTgiLCJpZCI6ODY3OTgsImlhdCI6MTcyNDE0MTE2OH0.L6yejLHYwVyBjyMdvDJndsetI3_niNAn9ibPzc1JBWA';
+const myAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI5NjAyZTAwMi1mOTFkLTQ4ZGItYmM5My0xYmQ5YmVmNjhiMGYiLCJpZCI6ODY3OTgsImlhdCI6MTcyNTAxMDIzNn0.U8KR2vuBItTy4bIC0ZJF0JbxLXJof2r7pOWBS_eOl50';
 
 const cesiumViewerOptionsGoogle3dTiles = {
   // terrain: Cesium.Terrain.fromWorldTerrain(),
