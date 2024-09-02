@@ -14,7 +14,7 @@ const cesiumViewerOptionsGoogle3dTiles = {
   navigationHelpButton: false,
   infoBox: false,
   selectionIndicator: false,
-  creditContainer: document.createElement("div"),
+  // creditContainer: document.createElement("div"),
   skyAtmosphere: new Cesium.SkyAtmosphere()
 };
 

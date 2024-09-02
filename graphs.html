@@ -42,7 +42,6 @@
     <nav id="navbar">
         <a class="pages" href="index.html">Home</a>
         <a class="pages" href="graphs.html">Graphs and Diagrams</a>
-        <!-- <a class="pages" href="deckgl.html">DeckGL</a> -->
         <a class="pages" href="about.html">About Us</a>
     </nav>
 
@@ -52,33 +51,36 @@
                 <h2 class="customH1">PARAMETER SELECTION</h2>
 
                 <div class="dropdown-container">
-                    <label>Location</label>
-                    <select id="locationSelector">
-                        <!-- N02 -->
-                        <option value="N02" selected>International Montessorischule</option>
-                        <!-- N04 -->
-                        <option value="N04">Neuperlach Nord</option>
-                        <!-- N03 -->
-                        <option value="N03">Neuperlach Zentrum</option>
-                        <!-- Parent -->
-                        <option value="Parent">Overall</option>
-                    </select>
-                </div>
-                <div class="dropdown-container">
                     <label>Scenario</label>
                     <select id="scenarioSelector">
-                        <option value="BS" selected>Baseline</option>
+                        <option value="BS0" selected>Baseline</option>
+                        <option value="BS1">Baseline (Sub-domain)</option>
                         <option value="S1">The STRUCTURE</option>
                     </select>
                 </div>
+
+                <div class="dropdown-container">
+                    <label>Location</label>
+                    <select id="locationSelector">
+                        <!-- Parent -->
+                        <option value="N00" selected>Overall</option>
+                        <!-- N02 -->
+                        <option value="N02">Neuperlach Zentrum</option>
+                        <!-- N03 -->
+                        <option value="N03">International Montessorischule</option>
+                        <!-- N04 -->
+                        <option value="N04">Neuperlach Nord</option>
+                    </select>
+                </div>
+
                 <div class="dropdown-container">
                     <label>Variable</label>
                     <select id="variableSelector">
-                        <option value="airTemp" selected>Air Temperature</option>
+                        <option value="ta_2m" selected>Air Temperature</option>
                         <option value="tsurf">Surface Temperature</option>
-                        <option value="bioPET">PET</option>
-                        <option value="bioUTCI">UTCI</option>
-                        <option value="tIndoor">Indoor Temperature</option>
+                        <option value="bio_pet">PET</option>
+                        <option value="bio_utci">UTCI</option>
+                        <!-- <option value="tIndoor">Indoor Temperature</option> -->
                     </select>
                 </div>
 

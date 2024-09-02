@@ -1,27 +1,27 @@
 const plotTitle = {
-  airTemp: 'Air Temperature over time',
+  ta_2m: 'Air Temperature over time',
   tsurf: 'Surface Temperature ove time',
-  bioPET: 'PET over time',
-  bioUTCI: 'UTCI over time',
+  bio_pet: 'PET over time',
+  bio_utci: 'UTCI over time',
   tIndoor: 'Indoor Temperature over time',
 };
 const legendTitle = {
-  airTemp: 'Air Temperature',
+  ta_2m: 'Air Temperature',
   tsurf: 'Surface Temperature',
-  bioPET: 'PET',
-  bioUTCI: 'UTCI',
+  bio_pet: 'PET',
+  bio_utci: 'UTCI',
   tIndoor: 'Indoor Temperature'
 };
 const yaxisRanges = {
-  airTemp: [18, 36],
+  ta_2m: [18, 36],
   tsurf: [16, 44],
-  bioPET: [16, 40],
-  bioUTCI: [18, 36],
+  bio_pet: [16, 40],
+  bio_utci: [18, 36],
   tIndoor: [20,24],
 };
 
 const shapeDatas = {
-  airTemp: [
+  ta_2m: [
     { y0: 18, y1: 20.0, fillcolor: "rgba(0, 0, 255, 0.5)" },
     { y0: 20, y1: 22.0, fillcolor: "rgba(0, 100, 255, 0.5)" },
     { y0: 22, y1: 24, fillcolor: "rgba(0, 150, 255, 0.5)" },
@@ -45,7 +45,7 @@ const shapeDatas = {
     { y0: 41.2, y1: 44.6, fillcolor: "rgba(255, 200, 0, 0.5)" },
     { y0: 44.6, y1: 48, fillcolor: "rgba(255, 100, 0, 0.5)" },
   ],
-  bioPET: [
+  bio_pet: [
     // { y0: -100, y1: 4, fillcolor: "rgba(0, 0, 255, 0.5)" }, // Extreme Cold Stress
     // { y0: 4, y1: 8, fillcolor: "rgba(0, 255, 255, 0.5)" }, // Strong Cold Stress
     // { y0: 8, y1: 13, fillcolor: "rgba(173, 216, 230, 0.5)" }, // Moderate Cold Stress
@@ -56,7 +56,7 @@ const shapeDatas = {
     { y0: 35, y1: 41, fillcolor: "rgba(255, 0, 0, 0.5)" }, // Strong Heat Stress
     { y0: 41, y1: 60, fillcolor: "rgba(128, 0, 0, 0.5)" }, // Extreme Heat Stress
   ],
-  bioUTCI: [
+  bio_utci: [
     // { y0: -100, y1: -40, fillcolor: "rgba(75, 0, 130, 0.5)" }, // Extreme Cold Stress
     // { y0: -40, y1: -27, fillcolor: "rgba(0, 0, 139, 0.5)" }, // Very Strong Cold Stress
     // { y0: -27, y1: -13, fillcolor: "rgba(0, 0, 255, 0.5)" }, // Strong Cold Stress
