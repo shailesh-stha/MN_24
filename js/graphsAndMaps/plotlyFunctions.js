@@ -79,7 +79,7 @@ const shapeDatas = {
   ],
 };
 
-export function plotGraph(meanValuesList, selectedVariableValue) {
+export function plotGraph(meanValuesList, selectedVariableValue, bandNumber) {
   let shapeData = shapeDatas[selectedVariableValue];
   let yaxis_range = yaxisRanges[selectedVariableValue];
 
@@ -119,10 +119,10 @@ export function plotGraph(meanValuesList, selectedVariableValue) {
       showlegend: true,
     }));
 
-  // console.log(shapeDataLegend);
-
   // Define the layout for the plot
   var layout = {
+    autosize: false,
+    height: 420,
     title: {
       text: plotTitle[selectedVariableValue],
       font: { size: 18 },
@@ -154,7 +154,24 @@ export function plotGraph(meanValuesList, selectedVariableValue) {
       tickfont: { size: 16 },
     },
     margin: { l: 60, r: 30, b: 50, t: 40, pad: 5 },
-    shapes: backgroundShapes,
+    shapes: [
+      ...backgroundShapes,
+      {
+        type: "line",
+        xref: "x",
+        yref: "paper",
+        x0: bandNumber,
+        y0: 0,
+        x1: bandNumber,
+        y1: 1,
+        line: {
+          color: "#ff00ff",
+          width: 3,
+          dash: "dashdot"
+        },
+        layer: "below"
+      }
+    ],
     legend: {
       x: 0.00,
       y: 1.00,
@@ -163,8 +180,8 @@ export function plotGraph(meanValuesList, selectedVariableValue) {
       bgcolor: "rgba(255,255,255,0.75)",
     },
     paper_bgcolor: "rgba(0,0,150,0.01)",
-    autosize: true,
   };
+
   // Plot the graph
   Plotly.newPlot("plotlyLineGraph", [trace1, ...shapeDataLegend], layout);
 

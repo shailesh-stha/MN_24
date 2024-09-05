@@ -112,29 +112,23 @@ document
     }
   });
 
-document
-  .getElementById("variableSelector")
-  .addEventListener("change", function () {
+document.getElementById("variableSelector").addEventListener("change", function () {
     updateGeotiffAndPlot();
     if (marker) {
       map.removeLayer(marker);
     }
   });
-document
-  .getElementById("time-slider")
-  .addEventListener("input", updateTimeSliderElement);
-document
-  .getElementById("time-slider")
-  .addEventListener("change", async function () {
-    const georaster = await fetchGeotiff();
-    const bandNumber = document.getElementById("time-slider").value;
-    const layerTransparency =
-      document.getElementById("transparency-slider").value / 100;
-    await updateGeotiff(georaster, bandNumber, layerTransparency);
-    if (marker) {
-      map.removeLayer(marker);
-    }
-  });
+document.getElementById("time-slider").addEventListener("input", updateTimeSliderElement);
+document.getElementById("time-slider").addEventListener("change", async function () {
+  updateGeotiffAndPlot();
+  const georaster = await fetchGeotiff();
+  const bandNumber = document.getElementById("time-slider").value;
+  const layerTransparency = document.getElementById("transparency-slider").value / 100;
+  await updateGeotiff(georaster, bandNumber, layerTransparency);
+  if (marker) {
+    map.removeLayer(marker);
+  }
+});
 document
   .getElementById("transparency-slider")
   .addEventListener("input", updateTransparencySliderElement);
@@ -161,8 +155,13 @@ document.addEventListener("keydown", function (event) {
   }
   if (event.code === "Space") {
     let bounds = currentGeotiffLayer.getBounds();
+
+    console.log(bounds);
     console.log(map.getCenter());
-    map.fitBounds(bounds);
+
+    let paddedBounds = bounds.pad(0.1);
+    map.fitBounds(paddedBounds);
+    // map.fitBounds(bounds);
   }
   if (
     event.key === "l" ||
@@ -205,7 +204,7 @@ async function updateGeotiffAndPlot() {
     let georaster = await fetchGeotiff();
     let meanValuesList = calculateMeanValues(georaster);
 
-    plotGraph(meanValuesList, selectedVariableValue);
+    plotGraph(meanValuesList, selectedVariableValue, bandNumber);
 
     let layerTransparency =
       document.getElementById("transparency-slider").value / 100;
@@ -333,6 +332,10 @@ function toggleLegendVisibility() {
 // Function to load GeoTIFF and display it with the legend
 async function updateGeotiff(georaster, bandNumber, opacity) {
   let [minValue, maxValue] = calculateExtremeValues(georaster, bandNumber);
+
+  // minValue = 18;
+  // maxValue = 33;
+
   const colors = ["#0000FF","#3333FF","#6666FF","#9999FF","#CCCCFF","#FFFF00","#FFCC00","#FF9900","#FF6600","#FF0000",];
   const legendGrades = [];
   const interval = (maxValue - minValue) / colors.length;
@@ -483,14 +486,11 @@ map.on("click", async function (event) {
     let selectedVariableValue =
       document.getElementById("variableSelector").value;
     const currentValue = valuesList[bandIndex];
+    
 
     marker = L.marker([lat, lng]).addTo(map);
-    popupContent = `Lat: ${lat.toFixed(4)}, Lon: ${lng.toFixed(
-      4
-    )}<br>Value: ${currentValue.toFixed(2)}°C`;
+    popupContent = `Lat: ${lat.toFixed(4)}, Lon: ${lng.toFixed(4)}<br>Value: ${currentValue.toFixed(2)}°C`;
     marker.bindPopup(popupContent).openPopup();
-
-    console.log(valuesList);
 
     // Plot graph from hourly data
     const container = document.getElementById("plotContainer");

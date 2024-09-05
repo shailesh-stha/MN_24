@@ -1,0 +1,43 @@
+.img-comp-container {
+    position: relative;
+    width: 100vh;
+    height: 60vh;
+    /* background-color: aqua; */
+}
+
+.img-comp-img {
+    position: absolute;
+    overflow: hidden;
+}
+
+.img-comp-img img {
+    display: block;
+    width: 100vh;
+    height: auto;
+}
+
+.img-comp-slider {
+    position: absolute;
+    z-index: 9;
+    cursor: ew-resize;
+    
+    width: 40px;
+    height: 40px;
+    background-color: #071c2d;
+    opacity: 0.7;
+    border: 1px solid white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+.img-comp-slider::before {
+    content: "";
+    position: absolute;
+    width: 5px;
+    height: 1350%;
+    background-color: #052642;
+    border: 1px solid white;
+}
