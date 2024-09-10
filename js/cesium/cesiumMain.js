@@ -81,16 +81,15 @@ document.getElementById('togglePolygon').addEventListener('click', function() {
   polygonEntity.show = !polygonEntity.show;
 });
 
+
 // Initialize entities
 const entities = await initializeEntities(viewer);
-
 function setCameraView(view) {
   viewer.camera.flyTo(cesiumCameraViews[view]);
 }
 
 // Initialize camera view
 viewer.camera.setView(cesiumCameraViews.view1);
-
 window.setCameraView = setCameraView;
 window.toggleEntities = (action) => toggleEntities(action, entities);
 

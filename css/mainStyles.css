@@ -3,19 +3,19 @@
 }
 
 body {
-    width: min(90%, 200vh, 1750px);
-    height: min(100vh, 500px,);
-    margin: 7.5px 10px;
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
-    background: linear-gradient(90deg, rgb(3, 0, 50) 0%, rgb(124, 0, 49) 100%);
+    width: min(100%, 1672px);
+    /* width 1672px */
+    height: min(814.9px, 100%);
+    padding: 10px;
+    margin: 10px;
+    background-color: rgb(255, 255, 255);
     overflow: hidden;
+    /* border: 1px solid black; */
 }
 
 /* Total scrollbar styling */
 ::-webkit-scrollbar {
-    width: 15px; /* Width of the scrollbar */
+    width: 15px;
 }
 
 ::-webkit-scrollbar-track {
@@ -33,79 +33,52 @@ body {
     background: darkred;
 }
 
-.webHeaderContainer {
-    width: 100%;
-    background-color: rgb(255, 255, 255);
-    padding: 15px;
-    margin-bottom: 5px;
-}
-
-.webHeaderLogo {
-    max-width: 250px;
-    max-height: 40px;
-    padding-left: 15px;
-}
-
 nav {
     width: 100%;
-    background-color: rgb(151, 151, 151);
-    padding: 5px 10px;
-    margin-bottom: 0px;
     display: flex;
+    margin-bottom: 25px;
     justify-content: flex-start;
 }
 
 nav a {
-    color: rgb(255, 255, 255);
-    font-size: 1.1em;
+    color: rgb(0, 0, 0);
+    font-size: 1.2em;
     font-weight: bold;
-    padding: 10px 25px;
+    padding: 5px;
     margin: 0px 5px;
-    border-radius: 5px 5px 0px 0px;
     text-decoration: none;
-    /* transition: background-color 0.3s, color 0.3s, border 0.3s, margin 0.3s; */
 }
-
+/* 
 nav a:last-child {
     margin-left: auto;
-}
+} */
 
 nav a:hover {
-    color: rgb(255, 62, 181);
-    background-color: rgb(245, 245, 245);
-    margin-bottom: 0px;
-    border-radius: 5px;
+    color: rgb(255, 110, 200);
+    text-decoration: none;
 }
 
 nav a.active {
-    background-color: rgb(255, 255, 255);
     color: rgb(255, 62, 181);
-    font-size: 1.1em;
-    padding-bottom: 0px;
-    margin-bottom: -5px;
 }
 
 .mainBodyContainer {
     height: 80vh;
-    width: 100%;
-    background-color: rgb(255, 255, 255);
-    padding: 15px;
+    margin: 5px;
     overflow: hidden;
 }
 
 .webFooterContainer {
-    width: 100%;
     height: 30px;
-    margin-top: 0px;
-    background-color: rgb(214, 214, 214);
+    margin: 5px;
+    background-color: rgb(249, 249, 249);
     color: black;
 }
 
 /* Cesium */
 #cesiumMapContainer {
     width: 100%;
-    height: 73vh;
-    border: 1px solid black;
+    height: 76vh;
 }
 #cesiumMapContainerEmpty {
     width: 100%;

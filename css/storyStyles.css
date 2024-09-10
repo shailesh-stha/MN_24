@@ -1,7 +1,7 @@
 .storyHeaderContainer {
     display: flex;
     flex-wrap: wrap;
-    background: linear-gradient(to right, rgb(20,20,20), rgba(201, 40, 139, 0.9));
+    background: linear-gradient(to right, rgb(255, 62, 181), rgba(255, 62, 181, 0.8));
     padding: 5px;
     margin-bottom: 5px;
     width: 100%;
@@ -16,7 +16,7 @@
 
 a {
     color: white;
-    font-size: 1.1em;
+    font-size: 1.15em;
     font-weight: bold;
 }
 
@@ -34,19 +34,20 @@ a {
 }
 
 .storyHeader a:hover {
-    color: rgb(255, 62, 181);
+    color: rgb(255, 220, 242);
     font-weight: bold;
+    text-decoration: none;
 }
 
 /* Contents */
 .storyContentContainer {
-    height: 60.5vh;
+    height: 65vh;
+    margin-top: 10px;
     overflow-y: auto;
 }
 
 .text-content {
-    max-width: 800px;
-    margin: 10px 15px 10px 10px;
+    margin: 0px 5px;
     text-align: justify;
 }
 
@@ -65,7 +66,7 @@ h2 {
 
 .activeHeader {
     background-color: rgb(255, 62, 181); 
-    border-left: 5px solid #007bff;
+    border-left: 8px solid rgb(129, 3, 83);
     color: white;
 }
 

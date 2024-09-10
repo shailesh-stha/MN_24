@@ -1,7 +1,6 @@
 #map {
-    height: 60vh;
-    width: 100%;
-    background-color: aliceblue;
+    height: 65vh;
+    width: min(100%, 75vh);
 }
 
 .leaflet-bar {
@@ -10,7 +9,7 @@
 }
 
 .legend {
-    line-height: 18px;
+    line-height: 16px;
     background-color: rgba(255, 255, 255,0.8);
     padding: 7.5px;
     border-radius: 10px;
@@ -38,15 +37,13 @@ h6 {
 
 #plotlyLineGraph {
     width: 100%;
-    height: 450px;
-    /* border: 1px solid black; */
+    height: 430px;
 }
 
 #plotContainer {
     width: 100%;
-    height: 230px;
+    height: 290px;
     margin-top: 5px;
-    /* background-color: aliceblue; */
 }
 
 .dropdown-container {
